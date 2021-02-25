@@ -1,0 +1,12 @@
+C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfikcreditData\bin\Debug\netcoreapp3.1\AfikcreditData.deps.json
+C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfikcreditData\bin\Debug\netcoreapp3.1\AfikcreditData.runtimeconfig.json
+C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfikcreditData\bin\Debug\netcoreapp3.1\AfikcreditData.runtimeconfig.dev.json
+C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfikcreditData\bin\Debug\netcoreapp3.1\AfikcreditData.dll
+C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfikcreditData\bin\Debug\netcoreapp3.1\AfikcreditData.pdb
+C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfikcreditData\obj\Debug\netcoreapp3.1\AfikcreditData.csprojAssemblyReference.cache
+C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfikcreditData\obj\Debug\netcoreapp3.1\AfikcreditData.AssemblyInfoInputs.cache
+C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfikcreditData\obj\Debug\netcoreapp3.1\AfikcreditData.AssemblyInfo.cs
+C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfikcreditData\obj\Debug\netcoreapp3.1\AfikcreditData.csproj.CoreCompileInputs.cache
+C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfikcreditData\obj\Debug\netcoreapp3.1\AfikcreditData.dll
+C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfikcreditData\obj\Debug\netcoreapp3.1\AfikcreditData.pdb
+C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfikcreditData\obj\Debug\netcoreapp3.1\AfikcreditData.genruntimeconfig.cache
