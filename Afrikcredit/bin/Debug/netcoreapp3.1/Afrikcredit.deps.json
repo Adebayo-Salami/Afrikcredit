@@ -24,7 +24,7 @@
     ".NETCoreApp,Version=v3.1": {
       "Afrikcredit/1.0.0": {
         "dependencies": {
-          "AfikcreditData": "1.0.0",
+          "AfrikcreditData": "1.0.0",
           "AfrikcreditServices": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "3.1.9",
           "Microsoft.AspNetCore.Session": "2.2.0",
@@ -1475,21 +1475,21 @@
           "System.Xml.XmlDocument": "4.3.0"
         }
       },
-      "AfikcreditData/1.0.0": {
+      "AfrikcreditData/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "5.0.3",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.3"
         },
         "runtime": {
-          "AfikcreditData.dll": {}
+          "AfrikcreditData.dll": {}
         },
         "compile": {
-          "AfikcreditData.dll": {}
+          "AfrikcreditData.dll": {}
         }
       },
       "AfrikcreditServices/1.0.0": {
         "dependencies": {
-          "AfikcreditData": "1.0.0"
+          "AfrikcreditData": "1.0.0"
         },
         "runtime": {
           "AfrikcreditServices.dll": {}
@@ -3896,7 +3896,7 @@
       "path": "system.xml.xmlserializer/4.3.0",
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
     },
-    "AfikcreditData/1.0.0": {
+    "AfrikcreditData/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

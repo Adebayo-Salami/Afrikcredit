@@ -4,13 +4,13 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using AfikcreditData.Models;
-using AfikcreditData.Interfaces;
+using AfrikcreditData.Models;
+using AfrikcreditData.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
-using AfikcreditData;
+using AfrikcreditData;
 
 namespace AfrikcreditServices
 {

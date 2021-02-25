@@ -5805,9 +5805,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfikcreditData\\AfikcreditData.csproj",
-      "projectName": "AfikcreditData",
-      "projectPath": "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfikcreditData\\AfikcreditData.csproj",
+      "projectUniqueName": "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfikcreditData\\AfrikcreditData.csproj",
+      "projectName": "AfrikcreditData",
+      "projectPath": "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfikcreditData\\AfrikcreditData.csproj",
       "packagesPath": "C:\\Users\\personal\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfikcreditData\\obj\\",
       "projectStyle": "PackageReference",

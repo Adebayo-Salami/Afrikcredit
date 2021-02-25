@@ -4,14 +4,14 @@
     "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\Afrikcredit\\Afrikcredit.csproj": {}
   },
   "projects": {
-    "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfikcreditData\\AfikcreditData.csproj": {
+    "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfrikcreditData\\AfrikcreditData.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfikcreditData\\AfikcreditData.csproj",
-        "projectName": "AfikcreditData",
-        "projectPath": "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfikcreditData\\AfikcreditData.csproj",
+        "projectUniqueName": "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfrikcreditData\\AfrikcreditData.csproj",
+        "projectName": "AfrikcreditData",
+        "projectPath": "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfrikcreditData\\AfrikcreditData.csproj",
         "packagesPath": "C:\\Users\\personal\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfikcreditData\\obj\\",
+        "outputPath": "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfrikcreditData\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -112,8 +112,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfikcreditData\\AfikcreditData.csproj": {
-                "projectPath": "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfikcreditData\\AfikcreditData.csproj"
+              "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfrikcreditData\\AfrikcreditData.csproj": {
+                "projectPath": "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfrikcreditData\\AfrikcreditData.csproj"
               }
             }
           }
@@ -174,8 +174,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfikcreditData\\AfikcreditData.csproj": {
-                "projectPath": "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfikcreditData\\AfikcreditData.csproj"
+              "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfrikcreditData\\AfrikcreditData.csproj": {
+                "projectPath": "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfrikcreditData\\AfrikcreditData.csproj"
               },
               "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfrikcreditServices\\AfrikcreditServices.csproj": {
                 "projectPath": "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfrikcreditServices\\AfrikcreditServices.csproj"

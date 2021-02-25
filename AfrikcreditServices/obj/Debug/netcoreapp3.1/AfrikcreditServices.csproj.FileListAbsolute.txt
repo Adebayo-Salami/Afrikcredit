@@ -1,8 +1,8 @@
 C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfrikcreditServices\bin\Debug\netcoreapp3.1\AfrikcreditServices.deps.json
 C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfrikcreditServices\bin\Debug\netcoreapp3.1\AfrikcreditServices.dll
 C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfrikcreditServices\bin\Debug\netcoreapp3.1\AfrikcreditServices.pdb
-C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfrikcreditServices\bin\Debug\netcoreapp3.1\AfikcreditData.dll
-C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfrikcreditServices\bin\Debug\netcoreapp3.1\AfikcreditData.pdb
+C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfrikcreditServices\bin\Debug\netcoreapp3.1\AfrikcreditData.dll
+C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfrikcreditServices\bin\Debug\netcoreapp3.1\AfrikcreditData.pdb
 C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfrikcreditServices\obj\Debug\netcoreapp3.1\AfrikcreditServices.csprojAssemblyReference.cache
 C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfrikcreditServices\obj\Debug\netcoreapp3.1\AfrikcreditServices.AssemblyInfoInputs.cache
 C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfrikcreditServices\obj\Debug\netcoreapp3.1\AfrikcreditServices.AssemblyInfo.cs

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using AfikcreditData.Interfaces;
+using AfrikcreditData.Interfaces;
 using AfrikcreditServices;
 using System;
 using System.Collections.Generic;
@@ -34,7 +34,7 @@ namespace Afrikcredit
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(60);
             });
-            services.AddDbContext<AfikcreditData.AfrikcreditDataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection")));
+            services.AddDbContext<AfrikcreditData.AfrikcreditDataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection")));
 
             services.AddSingleton(Configuration);
             services.AddScoped<IUserService, UserService>();

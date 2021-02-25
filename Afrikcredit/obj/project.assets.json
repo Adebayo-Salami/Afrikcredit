@@ -1697,7 +1697,7 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "AfikcreditData/1.0.0": {
+      "AfrikcreditData/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
@@ -1705,17 +1705,17 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.3"
         },
         "compile": {
-          "bin/placeholder/AfikcreditData.dll": {}
+          "bin/placeholder/AfrikcreditData.dll": {}
         },
         "runtime": {
-          "bin/placeholder/AfikcreditData.dll": {}
+          "bin/placeholder/AfrikcreditData.dll": {}
         }
       },
       "AfrikcreditServices/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
-          "AfikcreditData": "1.0.0"
+          "AfrikcreditData": "1.0.0"
         },
         "compile": {
           "bin/placeholder/AfrikcreditServices.dll": {}
@@ -6186,10 +6186,10 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
-    "AfikcreditData/1.0.0": {
+    "AfrikcreditData/1.0.0": {
       "type": "project",
-      "path": "../AfikcreditData/AfikcreditData.csproj",
-      "msbuildProject": "../AfikcreditData/AfikcreditData.csproj"
+      "path": "../AfrikcreditData/AfrikcreditData.csproj",
+      "msbuildProject": "../AfrikcreditData/AfrikcreditData.csproj"
     },
     "AfrikcreditServices/1.0.0": {
       "type": "project",
@@ -6199,7 +6199,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "AfikcreditData >= 1.0.0",
+      "AfrikcreditData >= 1.0.0",
       "AfrikcreditServices >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 3.1.9",
       "Microsoft.AspNetCore.Session >= 2.2.0",
@@ -6240,8 +6240,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfikcreditData\\AfikcreditData.csproj": {
-              "projectPath": "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfikcreditData\\AfikcreditData.csproj"
+            "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfrikcreditData\\AfrikcreditData.csproj": {
+              "projectPath": "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfrikcreditData\\AfrikcreditData.csproj"
             },
             "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfrikcreditServices\\AfrikcreditServices.csproj": {
               "projectPath": "C:\\Users\\personal\\OneDrive\\Documents\\Applications\\Afrikcredit\\AfrikcreditServices\\AfrikcreditServices.csproj"

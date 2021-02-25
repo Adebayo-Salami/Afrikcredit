@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Afrikcredit", "Afrikcredit\Afrikcredit.csproj", "{5910651D-57C7-4BDC-9059-C973575B6985}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Afrikcredit", "Afrikcredit\Afrikcredit.csproj", "{5910651D-57C7-4BDC-9059-C973575B6985}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AfikcreditData", "AfikcreditData\AfikcreditData.csproj", "{713B783B-1EE5-417D-90F5-F9C5BCDD1C70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AfrikcreditServices", "AfrikcreditServices\AfrikcreditServices.csproj", "{7B4FC28A-41D6-48FD-B4E7-7E44C2851416}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AfrikcreditServices", "AfrikcreditServices\AfrikcreditServices.csproj", "{7B4FC28A-41D6-48FD-B4E7-7E44C2851416}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AfrikcreditData", "AfrikcreditData\AfrikcreditData.csproj", "{210C36B3-B291-4435-A6EE-B46186B0ABD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{5910651D-57C7-4BDC-9059-C973575B6985}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5910651D-57C7-4BDC-9059-C973575B6985}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5910651D-57C7-4BDC-9059-C973575B6985}.Release|Any CPU.Build.0 = Release|Any CPU
-		{713B783B-1EE5-417D-90F5-F9C5BCDD1C70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{713B783B-1EE5-417D-90F5-F9C5BCDD1C70}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{713B783B-1EE5-417D-90F5-F9C5BCDD1C70}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{713B783B-1EE5-417D-90F5-F9C5BCDD1C70}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7B4FC28A-41D6-48FD-B4E7-7E44C2851416}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7B4FC28A-41D6-48FD-B4E7-7E44C2851416}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B4FC28A-41D6-48FD-B4E7-7E44C2851416}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B4FC28A-41D6-48FD-B4E7-7E44C2851416}.Release|Any CPU.Build.0 = Release|Any CPU
+		{210C36B3-B291-4435-A6EE-B46186B0ABD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{210C36B3-B291-4435-A6EE-B46186B0ABD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{210C36B3-B291-4435-A6EE-B46186B0ABD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{210C36B3-B291-4435-A6EE-B46186B0ABD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
