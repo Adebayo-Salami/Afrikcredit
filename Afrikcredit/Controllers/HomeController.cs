@@ -18,11 +18,10 @@ namespace Afrikcredit.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string username = "", string password = "")
         {
             HomePageViewModel viewModel = new HomePageViewModel()
             {
-
             };
 
             return View(viewModel);
