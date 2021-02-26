@@ -70,7 +70,44 @@
                                 you gain more financial power.
                             </p>
                             <a href="#" class="btn btn-primary rounded-pill">Register Now</a>
-                            <a href="#" class="btn btn-primary rounded-pill">Login</a>
+                            <a data-toggle="modal" data-target="#modalLogin" class="btn btn-primary rounded-pill" style="color:white">Login</a>
+                            <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <!--Header-->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="myModalLabel">Login Form</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <!--Body-->
+                                        <div class="modal-body">
+                                            <form method="post" asp-action="Login" asp-controller="Home">
+                                                <h2 class="sr-only">Login Form</h2>
+                                                <span class="login100-form-title p-b-51">
+                                                    Kindly input your login credentials
+                                                </span>
+                                                <div asp-validation-summary="All" class="text-danger"></div>
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" name="username" placeholder="Email" asp-for="Username">
+                                                    <span asp-validation-for="Username" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="form-control" type="password" name="password" placeholder="Password" asp-for="Password">
+                                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Log In</button></div>
+                                                @*<a class="forgot" href="#">Forgot your email or password?</a>*@
+                                            </form>
+                                        </div>
+                                        <!--Footer-->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-lg-6 d-none d-lg-block wow zoomIn">
                             <div class="img-place mobile-preview shadow floating-animate">
