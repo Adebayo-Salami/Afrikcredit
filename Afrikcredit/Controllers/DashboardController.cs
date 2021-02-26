@@ -84,6 +84,7 @@ namespace Afrikcredit.Controllers
                 Address = loggedUser.Address,
             };
 
+            HttpContext.Session.SetString("DisplayMessage", String.Empty);
             return View(viewModel);
         }
 
@@ -110,11 +111,12 @@ namespace Afrikcredit.Controllers
                 Notifications = _notificationService.GetAll(),
             };
 
+            HttpContext.Session.SetString("DisplayMessage", String.Empty);
             return View(viewModel);
         }
 
-        [HttpPost]
-        public IActionResult UpdateProfile(ProfileViewModel data)
+        [HttpGet]
+        public IActionResult UpdateProfile(string password = "", string phone = "", string address = "", string bank = "", string acct = "")
         {
             //Check Authentication
             string userId = HttpContext.Session.GetString("UserID");
@@ -126,7 +128,7 @@ namespace Afrikcredit.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            bool IsUpdated = _userService.UpdateUserInfo(loggedUser.Id, data.Password, data.PhoneNumber, data.Address, data.BankName, data.AccountNumber, out string message);
+            bool IsUpdated = _userService.UpdateUserInfo(loggedUser.Id, password, phone, address, bank, acct, out string message);
             if (!IsUpdated)
             {
                 HttpContext.Session.SetString("DisplayMessage", message);

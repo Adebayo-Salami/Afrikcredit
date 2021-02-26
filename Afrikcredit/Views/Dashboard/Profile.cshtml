@@ -25,12 +25,19 @@
         <link rel="shortcut icon" href="~/assets2/images/favicon.ico" />
     </head>
     <body>
+        @if (!String.IsNullOrWhiteSpace(Model.DisplayMessage))
+        {
+            <script>
+                alert("@Model.DisplayMessage");
+            </script>
+        }
+
         <div class="container-scroller">
             <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
                 <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
                     <a class="navbar-brand brand-logo" href="index.html">
                         @*<img src="~/assets2/images/logo.svg" alt="logo" />*@
-                        <i>Afrikcredit</i> 
+                        <i>Afrikcredit</i>
                     </a>
                     <a class="navbar-brand brand-logo-mini" href="index.html">
                         <img src="~/assets2/images/logo-mini.svg" alt="logo" />
@@ -127,7 +134,7 @@
                                                             <i class="mdi mdi-shield-outline text-white"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="text" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="colored-addon1" name="Password" asp-for="Password" value="@Model.Password">
+                                                    <input type="text" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="colored-addon1" name="Password" asp-for="Password" value="@Model.Password" id="txtPassword">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -137,7 +144,7 @@
                                                             <i class="mdi mdi-shield-outline text-white"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="text" class="form-control" placeholder="Bank Name" aria-label="BankName" aria-describedby="colored-addon1" name="BankName" asp-for="BankName" value="@Model.BankName">
+                                                    <input type="text" class="form-control" placeholder="Bank Name" aria-label="BankName" aria-describedby="colored-addon1" name="BankName" asp-for="BankName" value="@Model.BankName" id="txtBankName">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -147,7 +154,7 @@
                                                             <i class="mdi mdi-shield-outline text-white"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="text" class="form-control" placeholder="Account Number" aria-label="AccountNumber" aria-describedby="colored-addon1" name="AccountNumber" asp-for="AccountNumber" value="@Model.AccountNumber">
+                                                    <input type="text" class="form-control" placeholder="Account Number" aria-label="AccountNumber" aria-describedby="colored-addon1" name="AccountNumber" asp-for="AccountNumber" value="@Model.AccountNumber" id="txtAccountNumber">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -157,7 +164,7 @@
                                                             <i class="mdi mdi-shield-outline text-white"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="text" class="form-control" placeholder="Phone Number" aria-label="PhoneNumber" aria-describedby="colored-addon1" name="PhoneNumber" asp-for="PhoneNumber" value="@Model.PhoneNumber">
+                                                    <input type="text" class="form-control" placeholder="Phone Number" aria-label="PhoneNumber" aria-describedby="colored-addon1" name="PhoneNumber" asp-for="PhoneNumber" value="@Model.PhoneNumber" id="txtPhoneNumber">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -167,10 +174,17 @@
                                                             <i class="mdi mdi-shield-outline text-white"></i>
                                                         </span>
                                                     </div>
-                                                    <textarea rows="4" cols="50" placeholder="Address" aria-label="Address" class="form-control" name="Address" asp-for="Address">@Model.Address</textarea>
+                                                    <textarea rows="4" cols="50" placeholder="Address" aria-label="Address" class="form-control" name="Address" asp-for="Address" id="txtAddress">@Model.Address</textarea>
                                                 </div>
                                             </div>
-                                            <button type="button" class="btn btn-info btn-block">UPDATE</button>
+                                            <button type="button" class="btn btn-info btn-block" onclick="location.href = '@Url.Action("UpdateProfile", "Dashboard", new { password = "__pswd__", phone = "__phone__", address = "__address__", bank = "__bank__", acct = "__acct__"})'
+                                                    .replace('__pswd__', document.getElementById('txtPassword').value)
+                                                    .replace('__phone__', document.getElementById('txtPhoneNumber').value)
+                                                    .replace('__address__', document.getElementById('txtAddress').value)
+                                                    .replace('__bank__', document.getElementById('txtBankName').value)
+                                                    .replace('__acct__', document.getElementById('txtAccountNumber').value)">
+                                                UPDATE
+                                            </button>
                                         </form>
                                     </div>
                                 </div>
