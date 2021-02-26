@@ -88,7 +88,7 @@ namespace Afrikcredit.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Admin()
+        public IActionResult Admin(string _couponCode = "", string _couponCreator = "", string _couponDateCreated = "", string _couponDateUsed = "", string _couponUser = "", double _couponValue = 0, bool _couponUserDeactivated = false)
         {
             string _displayMessage = HttpContext.Session.GetString("DisplayMessage");
 
@@ -109,7 +109,22 @@ namespace Afrikcredit.Controllers
                 IsAdmin = loggedUser.isAdmin,
                 PhoneNumber = loggedUser.PhoneNumber,
                 Notifications = _notificationService.GetAll(),
+                AvailableCoupons = _couponService.GetAvailableCoupons(),
+                AllMaturedUserInvestments = _userInvestmentService.GetAllMaturedUserInvestments(),
+                TotalUsersRegisteredOnPlatform = _userService.GetTotalUserRegistered(),
+                TotalUsersWithActiveInvestment = _userService.GetTotalUsersEngagedInInvestment(),
             };
+
+            if (!String.IsNullOrWhiteSpace(_couponCode))
+            {
+                viewModel.CouponCode = _couponCode;
+                viewModel.CouponCreator = _couponCreator;
+                viewModel.CouponDateCreated = _couponDateCreated;
+                viewModel.CouponDateUsed = _couponDateUsed;
+                viewModel.CouponUser = _couponUser;
+                viewModel.CouponValue = _couponValue;
+                viewModel.IsCouponUserDeactivated = _couponUserDeactivated;
+            }
 
             HttpContext.Session.SetString("DisplayMessage", String.Empty);
             return View(viewModel);
@@ -137,6 +152,180 @@ namespace Afrikcredit.Controllers
 
             HttpContext.Session.SetString("DisplayMessage", "Update Successful.");
             return RedirectToAction("Profile", "Dashboard");
+        }
+
+        [HttpGet]
+        public IActionResult GenerateCoupon(string amount)
+        {
+            //Check Authentication
+            string userId = HttpContext.Session.GetString("UserID");
+            string authenticationToken = HttpContext.Session.GetString("AuthorizationToken");
+            bool userLogged = _userService.CheckUserAuthentication(Convert.ToInt64(userId), authenticationToken, out User loggedUser);
+            if (!userLogged)
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Please, Kindly login. Your session has expired.");
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (!loggedUser.isAdmin)
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Your not authorized to view that page.");
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+            double amt = 0;
+            try
+            {
+                amt = Convert.ToDouble(amount);
+                if (amt <= 0)
+                {
+                    throw new Exception("Err");
+                }
+            }
+            catch
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Please, Kindly input a valid amount.");
+                return RedirectToAction("Admin", "Dashboard");
+            }
+
+            bool IsGenerated = _couponService.Create(amt, loggedUser.Id, out string message);
+            if (!IsGenerated)
+            {
+                HttpContext.Session.SetString("DisplayMessage", message);
+                return RedirectToAction("Admin", "Dashboard");
+            }
+
+            HttpContext.Session.SetString("DisplayMessage", "Your coupon has been generated successfully.");
+            return RedirectToAction("Admin", "Dashboard");
+        }
+
+        [HttpGet]
+        public IActionResult CheckCouponStatus(string couponCode)
+        {
+            //Check Authentication
+            string userId = HttpContext.Session.GetString("UserID");
+            string authenticationToken = HttpContext.Session.GetString("AuthorizationToken");
+            bool userLogged = _userService.CheckUserAuthentication(Convert.ToInt64(userId), authenticationToken, out User loggedUser);
+            if (!userLogged)
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Please, Kindly login. Your session has expired.");
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (!loggedUser.isAdmin)
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Your not authorized to view that page.");
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+            Coupon couponDetails = _couponService.GetCouponDetails(couponCode, out string message);
+            if (couponDetails == null)
+            {
+                HttpContext.Session.SetString("DisplayMessage", message);
+                return RedirectToAction("Admin", "Dashboard");
+            }
+
+            HttpContext.Session.SetString("DisplayMessage", "Your coupon data has been fetched successfully.");
+            return RedirectToAction("Admin", "Dashboard", new { _couponCode = couponDetails.Code, _couponCreator = (couponDetails.CreatedBy == null) ? "None" : couponDetails.CreatedBy.Username, _couponDateCreated = couponDetails.DateCreated.ToString(), _couponDateUsed = ((DateTime.Now - couponDetails.DateUsed).TotalDays > 1000) ? "Not Used" : couponDetails.DateUsed.ToString(), _couponUser = (couponDetails.UsedBy == null) ? "None" : couponDetails.UsedBy.Username, _couponValue = couponDetails.Value, _couponUserDeactivated = (couponDetails.UsedBy == null) ? false : couponDetails.UsedBy.IsDeactivated });
+        }
+
+        public IActionResult ReactivateCouponUser(string userEmail)
+        {
+            //Check Authentication
+            string Id = HttpContext.Session.GetString("UserID");
+            string authenticationToken = HttpContext.Session.GetString("AuthorizationToken");
+
+            bool userLogged = _userService.CheckUserAuthentication(Convert.ToInt64(Id), authenticationToken, out User loggedUser);
+            if (!userLogged)
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Please, Kindly login. Your session has expired.");
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (!loggedUser.isAdmin)
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Your not authorized to view that page.");
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+            bool IsReactivated = _userService.ReActivateUser(userEmail, out string message);
+            if (!IsReactivated)
+            {
+                HttpContext.Session.SetString("DisplayMessage", message);
+                return RedirectToAction("Admin", "Dashboard");
+            }
+
+            HttpContext.Session.SetString("DisplayMessage", "User with username " + userEmail + " has been reactivated successfully.");
+            return RedirectToAction("Admin", "Dashboard");
+        }
+
+        public IActionResult DeactivateCouponUser(string userEmail)
+        {
+            //Check Authentication
+            string Id = HttpContext.Session.GetString("UserID");
+            string authenticationToken = HttpContext.Session.GetString("AuthorizationToken");
+
+            bool userLogged = _userService.CheckUserAuthentication(Convert.ToInt64(Id), authenticationToken, out User loggedUser);
+            if (!userLogged)
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Please, Kindly login. Your session has expired.");
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (!loggedUser.isAdmin)
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Your not authorized to view that page.");
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+            bool IsDeactivated = _userService.DeactivateUser(userEmail, out string message);
+            if (!IsDeactivated)
+            {
+                HttpContext.Session.SetString("DisplayMessage", message);
+                return RedirectToAction("Admin", "Dashboard");
+            }
+
+            HttpContext.Session.SetString("DisplayMessage", "User with username " + userEmail + " has been deactivated successfully.");
+            return RedirectToAction("Admin", "Dashboard");
+        }
+
+        public IActionResult SetUserInvestmentToPaid(long userInvestmentId)
+        {
+            //Check Authentication
+            string Id = HttpContext.Session.GetString("UserID");
+            string authenticationToken = HttpContext.Session.GetString("AuthorizationToken");
+
+            bool userLogged = _userService.CheckUserAuthentication(Convert.ToInt64(Id), authenticationToken, out User loggedUser);
+            if (!userLogged)
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Please, Kindly login. Your session has expired.");
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (!loggedUser.isAdmin)
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Your not authorized to view that page.");
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+            if (userInvestmentId <= 0)
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Invalid User Investment ID.");
+            }
+            else
+            {
+                bool isUserPaid = _userInvestmentService.SetUserInvestmentToPaid(userInvestmentId, out string message);
+                if (isUserPaid)
+                {
+                    HttpContext.Session.SetString("DisplayMessage", "User updated to paid.");
+                }
+                else
+                {
+                    HttpContext.Session.SetString("DisplayMessage", message);
+                }
+            }
+
+            return RedirectToAction("Admin", "Dashboard");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

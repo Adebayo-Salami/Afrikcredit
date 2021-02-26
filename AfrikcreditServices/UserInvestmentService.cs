@@ -137,7 +137,7 @@ namespace AfrikcreditServices
 
             try
             {
-                List<UserInvestment> allUserInvestments = _context.UserInvestments.Include(x => x.User).Include(x => x.Investment).Include(x => x.User.Wallet).Where(x => x.InvestmentStatus == InvestmentStatus.Pending && x.IsDeactivated == false && x.IsWithdrawing == true).OrderByDescending(x => x.DateInvested).ToList();
+                List<UserInvestment> allUserInvestments = _context.UserInvestments.Include(x => x.User).Include(x => x.Investment).Include(x => x.User.Wallet).Where(x => x.InvestmentStatus == InvestmentStatus.Pending && x.IsDeactivated == false && x.IsWithdrawing == true).OrderBy(x => x.DateInvested).ToList();
                 foreach (var userInvestment in allUserInvestments)
                 {
                     TimeSpan timeSpan = DateTime.Now - userInvestment.DateInvested;

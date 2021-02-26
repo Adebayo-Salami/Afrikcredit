@@ -111,7 +111,196 @@
 
                 <div class="main-panel">
                     <div class="content-wrapper">
+                        <h6 style="color:white">Total Users Registered On The Platform: @Model.TotalUsersRegisteredOnPlatform</h6>
+                        <h6 style="color:white">Total Users Engaged In An Active Investment: @Model.TotalUsersWithActiveInvestment</h6>
+                        <div class="modal fade" id="modalAddNewNotification" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <!--Header-->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="myModalLabel">Add New Notification</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <!--Body-->
+                                    <div class="modal-body">
+                                        <form method="post" asp-action="AddNotification" asp-controller="Admin">
+                                            <input style="color:black" class="form-control" type="text" placeholder="Type Here" name="notificationMessage" asp-for="notificationMessage">
+                                            <br />
+                                            <button class="btn btn-primary">Post Notification</button>
+                                        </form>
+                                    </div>
+                                    <!--Footer-->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="row">
+                            <div class="col-lg-6 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Create Coupon</h4>
+                                        <p class="card-description">
+                                            You can create new coupons with this form
+                                        </p>
+                                        <div class="form-group">
+                                            <form class="form-inline">
+                                                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Amount" aria-label="Recipient's amount" id="idCouponVal">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-sm btn-primary" type="button" onclick="location.href = '@Url.Action("GenerateCoupon", "Dashboard", new { amount = "__amt__"})'.replace('__amt__', document.getElementById('idCouponVal').value)">Generate Coupon</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Check Coupon Status</h4>
+                                        <p class="card-description">
+                                            You can check a coupon details here by inputting the coupon code
+                                        </p>
+                                        <form class="form-inline">
+                                            <label class="sr-only" for="inlineFormInputName2">Coupon Code</label>
+                                            <input type="text" class="form-control mb-2 mr-sm-2" id="idCouponCode" placeholder="BHJSN8982XY">
+                                            <button type="button" class="btn btn-primary mb-2" onclick="location.href = '@Url.Action("CheckCouponStatus", "Dashboard", new { couponCode = "__code__"})'.replace('__code__', document.getElementById('idCouponCode').value)">Check Status</button>
+                                        </form>
+                                        <hr />
+                                        <br />
+                                        <label class="sr-only" for="inlineFormInputName2">Coupon Details</label>
+                                        <ul>
+                                            <li>Created By: <b>@Model.CouponCreator</b></li>
+                                            <li>Coupon Code: <b>@Model.CouponCode</b></li>
+                                            <li>Coupon Value: <b>@Model.CouponValue</b></li>
+                                            <li>Used By: <b>@Model.CouponUser</b></li>
+                                            <li>Date Created: <b>@Model.CouponDateCreated</b></li>
+                                            <li>Date Used: <b>@Model.CouponDateUsed</b></li>
+                                        </ul>
+                                        @if (!String.IsNullOrWhiteSpace(Model.CouponUser) && Model.CouponUser != "None")
+                                        {
+                                            @if (Model.IsCouponUserDeactivated)
+                                            {
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-sm btn-primary" type="button" onclick="location.href = '@Url.Action("ReactivateCouponUser", "Dashboard", new { userEmail = Model.CouponUser })'">Re-Activate Coupon User</button>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-sm btn-primary" type="button" onclick="location.href = '@Url.Action("DeactivateCouponUser", "Dashboard", new { userEmail = Model.CouponUser })'">Deactivate Coupon User</button>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="row">
+                            <div class="col-lg-12 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Notification List <button class="btn btn-primary btn-round" onclick="GetAddNewNotificationPartial()" style="background-color:darkblue">Add New Notification</button></h4>
+                                        <p class="card-description">You can manage your notifications here.</p>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date Posted</th>
+                                                    <th>Message</th>
+                                                    <th>Posted By</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var notification in Model.Notifications)
+                                                {
+                                                    <tr>
+                                                        <td>@notification.DatePosted</td>
+                                                        <td>@notification.Message</td>
+                                                        <td>Admin</td>
+                                                        <td><input type="button" value="Remove" class="btn btn-primary btn-round" onclick="location.href='@Url.Action("RemoveNotification", "Dashboard", new { notificationID = notification.Id })'" /></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+
+                        <div class="row">
+                            <div class="col-lg-12 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <table class="table table-bordered">
+                                            <h4 class="card-title">Available Coupons</h4>
+                                            <p class="card-description">You can view list of unused coupons here. </p>
+                                            <thead class=" text-primary">
+                                                <tr>
+                                                    <th>Created By</th>
+                                                    <th>Coupon Code</th>
+                                                    <th>Coupon Value</th>
+                                                    <th>Date Created</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var coupon in Model.AvailableCoupons)
+                                                {
+                                                    <tr>
+                                                        <td>@coupon.CreatedBy.Username</td>
+                                                        <td>@coupon.Code</td>
+                                                        <td>@coupon.Value</td>
+                                                        <td>@coupon.DateCreated.ToString()</td>
+                                                        <td>FREE</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Payout List</h4>
+                                        <p class="card-description">You can view list of matured investments here.</p>
+                                        <table class="table table-bordered">
+                                            <thead class=" text-primary">
+                                                <tr>
+                                                    <th>Username</th>
+                                                    <th>Amount</th>
+                                                    <th>Account Number</th>
+                                                    <th>Bank Name</th>
+                                                    <th>Investment Type</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var userInvestment in Model.AllMaturedUserInvestments)
+                                                {
+                                                    <tr>
+                                                        <td>@userInvestment.User.Username</td>
+                                                        <td>@userInvestment.Investment.AmountToBeGotten</td>
+                                                        <td>@userInvestment.User.Wallet.AccountNumber</td>
+                                                        <td>@userInvestment.User.Wallet.BankName</td>
+                                                        <td>@userInvestment.Investment.Name</td>
+                                                        <td><input type="button" value="Paid" onclick="location.href='@Url.Action("SetUserInvestmentToPaid", "Dashboard", new { userInvestmentId = userInvestment.Id })'" /></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <footer class="footer">
