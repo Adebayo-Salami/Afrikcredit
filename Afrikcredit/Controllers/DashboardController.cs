@@ -56,5 +56,57 @@ namespace Afrikcredit.Controllers
             HttpContext.Session.SetString("DisplayMessage", String.Empty);
             return View(viewModel);
         }
+
+        public IActionResult Profile()
+        {
+            string _displayMessage = HttpContext.Session.GetString("DisplayMessage");
+
+            //Check Authentication
+            string userId = HttpContext.Session.GetString("UserID");
+            string authenticationToken = HttpContext.Session.GetString("AuthorizationToken");
+            bool userLogged = _userService.CheckUserAuthentication(Convert.ToInt64(userId), authenticationToken, out User loggedUser);
+            if (!userLogged)
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Please, Kindly login. Your session has expired.");
+                return RedirectToAction("Index", "Home");
+            }
+
+            ProfileViewModel viewModel = new ProfileViewModel()
+            {
+                DisplayMessage = _displayMessage,
+                Username = loggedUser.Username,
+                IsAdmin = loggedUser.isAdmin,
+                PhoneNumber = loggedUser.PhoneNumber,
+                Notifications = _notificationService.GetAll(),
+            };
+
+            return View(viewModel);
+        }
+
+        public IActionResult Admin()
+        {
+            string _displayMessage = HttpContext.Session.GetString("DisplayMessage");
+
+            //Check Authentication
+            string userId = HttpContext.Session.GetString("UserID");
+            string authenticationToken = HttpContext.Session.GetString("AuthorizationToken");
+            bool userLogged = _userService.CheckUserAuthentication(Convert.ToInt64(userId), authenticationToken, out User loggedUser);
+            if (!userLogged)
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Please, Kindly login. Your session has expired.");
+                return RedirectToAction("Index", "Home");
+            }
+
+            AdminViewModel viewModel = new AdminViewModel()
+            {
+                DisplayMessage = _displayMessage,
+                Username = loggedUser.Username,
+                IsAdmin = loggedUser.isAdmin,
+                PhoneNumber = loggedUser.PhoneNumber,
+                Notifications = _notificationService.GetAll(),
+            };
+
+            return View(viewModel);
+        }
     }
 }
