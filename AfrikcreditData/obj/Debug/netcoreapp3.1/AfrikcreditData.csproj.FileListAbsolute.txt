@@ -21,3 +21,4 @@ C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfrikcreditData\ob
 C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfrikcreditData\obj\Debug\netcoreapp3.1\AfrikcreditData.dll
 C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfrikcreditData\obj\Debug\netcoreapp3.1\AfrikcreditData.pdb
 C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfrikcreditData\obj\Debug\netcoreapp3.1\AfrikcreditData.genruntimeconfig.cache
+C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\AfrikcreditData\obj\Debug\netcoreapp3.1\AfrikcreditData.csprojAssemblyReference.cache
