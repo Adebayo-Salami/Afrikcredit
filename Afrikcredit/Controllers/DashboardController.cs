@@ -49,6 +49,8 @@ namespace Afrikcredit.Controllers
                 DisplayMessage = _displayMessage,
                 Username = loggedUser.Username,
                 IsAdmin = loggedUser.isAdmin,
+                PhoneNumber = loggedUser.PhoneNumber,
+                Notifications = _notificationService.GetAll(),
             };
 
             HttpContext.Session.SetString("DisplayMessage", String.Empty);

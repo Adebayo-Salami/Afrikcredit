@@ -98,13 +98,19 @@ namespace Afrikcredit.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            if (String.IsNullOrWhiteSpace(data.PhoneNumber))
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Kindly input your phone numnber");
+                return RedirectToAction("Index", "Home");
+            }
+
             if (data.Password != data.ReTypePassword)
             {
                 HttpContext.Session.SetString("DisplayMessage", "Passwords do not match.");
                 return RedirectToAction("Index", "Home");
             }
 
-            bool isRegistered = _userService.Register(data.Username, data.Password, data.AccountNumber, data.BankName, data.ReferralCode, out string message);
+            bool isRegistered = _userService.Register(data.Username, data.Password, data.AccountNumber, data.BankName, data.ReferralCode, data.PhoneNumber, out string message);
             if (!isRegistered)
             {
                 HttpContext.Session.SetString("DisplayMessage", message);
@@ -112,6 +118,33 @@ namespace Afrikcredit.Controllers
             }
 
             HttpContext.Session.SetString("DisplayMessage", "Registration Successful!, Kindly Login Now.");
+            return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult Logout()
+        {
+            try
+            {
+                //Check Authentication
+                string userId = HttpContext.Session.GetString("UserID");
+                string authenticationToken = HttpContext.Session.GetString("AuthorizationToken");
+
+                bool userLogged = _userService.CheckUserAuthentication(Convert.ToInt64(userId), authenticationToken, out User loggedUser);
+                if (userLogged)
+                {
+                    if (!_userService.LogoutUser(loggedUser, out string message))
+                    {
+                        throw new Exception(message);
+                    }
+                }
+
+            }
+            catch (Exception err)
+            {
+                _logger.LogError("An error occurred at Logout " + err);
+            }
+
+            HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
         }
 

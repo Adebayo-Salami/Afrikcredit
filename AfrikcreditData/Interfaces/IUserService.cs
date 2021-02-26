@@ -7,7 +7,7 @@ namespace AfrikcreditData.Interfaces
 {
     public interface IUserService
     {
-        bool Register(string email, string password, string accountNumber, string bankName, string referral, out string message);
+        bool Register(string email, string password, string accountNumber, string bankName, string referral, string phoneNumber, out string message);
         User Login(string email, string password, out string message);
         User GetUserByEmail(string email, out string message);
         User GetUserByID(long userId, out string message);

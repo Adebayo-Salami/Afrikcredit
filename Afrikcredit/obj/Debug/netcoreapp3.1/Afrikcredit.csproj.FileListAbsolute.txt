@@ -82,3 +82,4 @@ C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\Afrikcredit\obj\De
 C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\Afrikcredit\obj\Debug\netcoreapp3.1\Afrikcredit.pdb
 C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\Afrikcredit\obj\Debug\netcoreapp3.1\Afrikcredit.genruntimeconfig.cache
 C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\Afrikcredit\obj\Debug\netcoreapp3.1\Razor\Views\Home\About.cshtml.g.cs
+C:\Users\personal\OneDrive\Documents\Applications\Afrikcredit\Afrikcredit\obj\Debug\netcoreapp3.1\Razor\Views\Dashboard\Index.cshtml.g.cs

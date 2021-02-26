@@ -198,7 +198,7 @@ namespace AfrikcreditServices
             }
         }
 
-        public bool Register(string email, string password, string accountNumber, string bankName, string referral, out string message)
+        public bool Register(string email, string password, string accountNumber, string bankName, string referral, string phoneNumber, out string message)
         {
             message = String.Empty;
             bool result = false;
@@ -229,6 +229,12 @@ namespace AfrikcreditServices
                     return false;
                 }
 
+                if (String.IsNullOrWhiteSpace(phoneNumber))
+                {
+                    message = "Phone Number Is Required";
+                    return false;
+                }
+
                 if (CheckIfEmailExists(email))
                 {
                     message = "User with this Username already exists";
@@ -256,6 +262,7 @@ namespace AfrikcreditServices
                         AccountNumber = accountNumber,
                         BankName = bankName
                     },
+                    PhoneNumber = phoneNumber,
                 };
 
                 _context.Users.Add(userRegistering);

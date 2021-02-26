@@ -17,5 +17,6 @@ namespace Afrikcredit.Models
         public string Address { get; set; }
         public string DisplayMessage { get; set; }
         public string ReferralCode { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }
