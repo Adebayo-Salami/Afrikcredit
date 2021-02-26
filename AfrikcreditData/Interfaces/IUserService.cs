@@ -21,6 +21,6 @@ namespace AfrikcreditData.Interfaces
         bool DeactivateUser(string userEmail, out string message);
         bool ReActivateUser(string userEmail, out string message);
         bool UpdatePasswordInfo(long userId, string oldPassword, string newPassword, string retypePassword, out string message);
-        bool UpdateUserInfo(long userId, string firstName, string lastName, string address, string city, string country, string postalCode, string aboutMe, string bankName, string accountNumber, string secretAns1, string secretAns2, string secretAns3, out string message);
+        bool UpdateUserInfo(long userId, string password, string phoneNumber, string address, string bankName, string accountNumber, out string message);
     }
 }

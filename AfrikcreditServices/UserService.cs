@@ -513,7 +513,7 @@ namespace AfrikcreditServices
             return result;
         }
 
-        public bool UpdateUserInfo(long userId, string firstName, string lastName, string address, string city, string country, string postalCode, string aboutMe, string bankName, string accountNumber, string secretAns1, string secretAns2, string secretAns3, out string message)
+        public bool UpdateUserInfo(long userId, string password, string phoneNumber, string address, string bankName, string accountNumber, out string message)
         {
             bool result = false;
             message = String.Empty;
@@ -538,19 +538,14 @@ namespace AfrikcreditServices
                     user.Address = address;
                 }
 
-                if (!String.IsNullOrWhiteSpace(secretAns1))
+                if (!String.IsNullOrWhiteSpace(password))
                 {
-                    user.SecretAnswer1 = secretAns1;
+                    user.Password = password;
                 }
 
-                if (!String.IsNullOrWhiteSpace(secretAns2))
+                if (!String.IsNullOrWhiteSpace(phoneNumber))
                 {
-                    user.SecretAnswer2 = secretAns2;
-                }
-
-                if (!String.IsNullOrWhiteSpace(secretAns3))
-                {
-                    user.SecretAnswer3 = secretAns3;
+                    user.PhoneNumber = phoneNumber;
                 }
 
                 if (!String.IsNullOrWhiteSpace(bankName) || !String.IsNullOrWhiteSpace(accountNumber))

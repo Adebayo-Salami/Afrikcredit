@@ -78,6 +78,10 @@ namespace Afrikcredit.Controllers
                 IsAdmin = loggedUser.isAdmin,
                 PhoneNumber = loggedUser.PhoneNumber,
                 Notifications = _notificationService.GetAll(),
+                Password = loggedUser.Password,
+                BankName = (loggedUser.Wallet == null) ? "None" : loggedUser.Wallet.BankName,
+                AccountNumber = (loggedUser.Wallet == null) ? "None" : loggedUser.Wallet.AccountNumber,
+                Address = loggedUser.Address,
             };
 
             return View(viewModel);
@@ -108,5 +112,36 @@ namespace Afrikcredit.Controllers
 
             return View(viewModel);
         }
+
+        [HttpPost]
+        public IActionResult UpdateProfile(ProfileViewModel data)
+        {
+            //Check Authentication
+            string userId = HttpContext.Session.GetString("UserID");
+            string authenticationToken = HttpContext.Session.GetString("AuthorizationToken");
+            bool userLogged = _userService.CheckUserAuthentication(Convert.ToInt64(userId), authenticationToken, out User loggedUser);
+            if (!userLogged)
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Please, Kindly login. Your session has expired.");
+                return RedirectToAction("Index", "Home");
+            }
+
+            bool IsUpdated = _userService.UpdateUserInfo(loggedUser.Id, data.Password, data.PhoneNumber, data.Address, data.BankName, data.AccountNumber, out string message);
+            if (!IsUpdated)
+            {
+                HttpContext.Session.SetString("DisplayMessage", message);
+                return RedirectToAction("Profile", "Dashboard");
+            }
+
+            HttpContext.Session.SetString("DisplayMessage", "Update Successful.");
+            return RedirectToAction("Profile", "Dashboard");
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
     }
 }

@@ -101,6 +101,92 @@
                         }
                     </ul>
                 </nav>
+
+                <div class="main-panel">
+                    <div class="content-wrapper">
+                        <div class="row">
+                            <div class="col-12 grid-margin">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Edit User Information</h4>
+                                        <form method="post" asp-action="UpdateProfile" asp-controller="Dashboard">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend bg-info">
+                                                        <span class="input-group-text bg-transparent">
+                                                            <i class="mdi mdi-shield-outline text-white"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="colored-addon1" name="Username" asp-for="Username" value="@Model.Username" disabled="disabled">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend bg-info">
+                                                        <span class="input-group-text bg-transparent">
+                                                            <i class="mdi mdi-shield-outline text-white"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="colored-addon1" name="Password" asp-for="Password" value="@Model.Password">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend bg-info">
+                                                        <span class="input-group-text bg-transparent">
+                                                            <i class="mdi mdi-shield-outline text-white"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="Bank Name" aria-label="BankName" aria-describedby="colored-addon1" name="BankName" asp-for="BankName" value="@Model.BankName">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend bg-info">
+                                                        <span class="input-group-text bg-transparent">
+                                                            <i class="mdi mdi-shield-outline text-white"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="Account Number" aria-label="AccountNumber" aria-describedby="colored-addon1" name="AccountNumber" asp-for="AccountNumber" value="@Model.AccountNumber">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend bg-info">
+                                                        <span class="input-group-text bg-transparent">
+                                                            <i class="mdi mdi-shield-outline text-white"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="Phone Number" aria-label="PhoneNumber" aria-describedby="colored-addon1" name="PhoneNumber" asp-for="PhoneNumber" value="@Model.PhoneNumber">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend bg-info">
+                                                        <span class="input-group-text bg-transparent">
+                                                            <i class="mdi mdi-shield-outline text-white"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea rows="4" cols="50" placeholder="Address" aria-label="Address" class="form-control" name="Address" asp-for="Address">@Model.Address</textarea>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-info btn-block">UPDATE</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <footer class="footer">
+                        <div class="container-fluid clearfix">
+                            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © afrikcreditcom 2020</span>
+                            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Powered By <a href="https://afrikcredit.com" target="_blank">Afrikcredit</a> CEO</span>
+                        </div>
+                    </footer>
+
+                </div>
+
             </div>
 
         </div>
