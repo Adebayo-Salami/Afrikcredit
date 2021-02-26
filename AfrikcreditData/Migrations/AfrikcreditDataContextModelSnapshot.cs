@@ -134,30 +134,14 @@ namespace AfrikcreditData.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AboutUser")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AuthenticationToken")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("DateJoined")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("EmailAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("HasPaidReferee")
                         .HasColumnType("bit");
@@ -168,14 +152,8 @@ namespace AfrikcreditData.Migrations
                     b.Property<DateTime>("LastLoginDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostalCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ReferralIds")
@@ -191,6 +169,10 @@ namespace AfrikcreditData.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecretAnswer3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("WalletId")

@@ -118,7 +118,7 @@ namespace AfrikcreditServices
 
                 if (String.IsNullOrWhiteSpace(receiverEmailAddress))
                 {
-                    message = "Receiver Email Address (Email address of the user sending money to, Kindly ensure that its the user account email address) is required.";
+                    message = "Receiver Username (Username of the user sending money to, Kindly ensure that its the user account username) is required.";
                     return result;
                 }
 
@@ -141,16 +141,16 @@ namespace AfrikcreditServices
                     return result;
                 }
 
-                if (sender.EmailAddress == receiverEmailAddress)
+                if (sender.Username == receiverEmailAddress)
                 {
                     message = "Apologies, your not allowed to transfer to oneself's account.";
                     return result;
                 }
 
-                User receiver = _context.Users.Include(x => x.Wallet).FirstOrDefault(x => x.EmailAddress == receiverEmailAddress);
+                User receiver = _context.Users.Include(x => x.Wallet).FirstOrDefault(x => x.Username == receiverEmailAddress);
                 if (receiver == null)
                 {
-                    message = "Apologies, No user account with the specified email address (" + receiverEmailAddress + ") exists on the platform.";
+                    message = "Apologies, No user account with the specified username (" + receiverEmailAddress + ") exists on the platform.";
                     return result;
                 }
 
@@ -166,7 +166,7 @@ namespace AfrikcreditServices
                 {
                     Amount = amount,
                     DateOfTransaction = DateTime.Now,
-                    TransactionDescription = amount + " naira was transferred from your account to " + receiver.EmailAddress + ".",
+                    TransactionDescription = amount + " naira was transferred from your account to " + receiver.Username + ".",
                     TransactionType = TransactionType.Debit,
                     User = sender,
                 };
@@ -174,7 +174,7 @@ namespace AfrikcreditServices
                 {
                     Amount = amount,
                     DateOfTransaction = DateTime.Now,
-                    TransactionDescription = amount + " naira was transferred to your account to " + sender.EmailAddress + ".",
+                    TransactionDescription = amount + " naira was transferred to your account to " + sender.Username + ".",
                     TransactionType = TransactionType.Credit,
                     User = receiver,
                 };

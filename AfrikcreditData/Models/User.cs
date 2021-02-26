@@ -9,8 +9,7 @@ namespace AfrikcreditData.Models
     {
         public int Id { get; set; }
         [Required]
-        [DataType(DataType.EmailAddress)]
-        public string EmailAddress { get; set; }
+        public string Username { get; set; }
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
@@ -25,13 +24,7 @@ namespace AfrikcreditData.Models
         public string SecretAnswer2 { get; set; }
         public string SecretAnswer3 { get; set; }
         public bool IsDeactivated { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
         public string Address { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
-        public string PostalCode { get; set; }
-        public string AboutUser { get; set; }
         public bool HasPaidReferee { get; set; }
     }
 }

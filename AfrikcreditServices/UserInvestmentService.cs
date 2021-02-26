@@ -89,7 +89,7 @@ namespace AfrikcreditServices
 
                 if (!String.IsNullOrWhiteSpace(user.ReferredBy) && !user.HasPaidReferee)
                 {
-                    User referredByUser = _context.Users.Include(x => x.Wallet).FirstOrDefault(x => x.EmailAddress == user.ReferredBy);
+                    User referredByUser = _context.Users.Include(x => x.Wallet).FirstOrDefault(x => x.Username == user.ReferredBy);
                     if (referredByUser != null)
                     {
                         if (referredByUser.Wallet != null)
@@ -100,7 +100,7 @@ namespace AfrikcreditServices
                             {
                                 Amount = referralBonus,
                                 DateOfTransaction = DateTime.Now,
-                                TransactionDescription = "Referral Bonus of " + referralBonus + " added to wallet for user " + user.EmailAddress + " last investment.",
+                                TransactionDescription = "Referral Bonus of " + referralBonus + " added to wallet for user " + user.Username + " last investment.",
                                 TransactionType = TransactionType.Credit,
                                 User = referredByUser
                             };

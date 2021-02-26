@@ -69,7 +69,63 @@
                                 Afrikcredit has the best investment plans <br>
                                 you gain more financial power.
                             </p>
-                            <a href="#" class="btn btn-primary rounded-pill">Register Now</a>
+                            <a href="#" class="btn btn-primary rounded-pill" data-toggle="modal" data-target="#modalRegister">Register Now</a>
+                            <div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <!--Header-->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="myModalLabel">Registration Form</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <!--Body-->
+                                        <div class="modal-body">
+                                            <form method="post" asp-action="Register" asp-controller="Home">
+                                                <h2 class="sr-only">Registration Form</h2>
+                                                <span class="login100-form-title p-b-51">
+                                                    Create your Afrikcredit account.
+                                                </span>
+                                                <div asp-validation-summary="All" class="text-danger"></div>
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" name="ReferralCode" placeholder="Ref Code (Not Compulsory)" asp-for="ReferralCode">
+                                                    <span asp-validation-for="ReferralCode" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" name="username" placeholder="Username" asp-for="Username">
+                                                    <span asp-validation-for="Username" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="Bank Name (E.g Firstbank)" name="BankName" asp-for="BankName">
+                                                    <span asp-validation-for="BankName" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="Account Number" name="AccountNumber" asp-for="AccountNumber">
+                                                    <span asp-validation-for="AccountNumber" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="form-control" type="password" name="Password" placeholder="Password" asp-for="Password">
+                                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="form-control" type="password" name="ReTypePassword" placeholder="Password (repeat)" asp-for="ReTypePassword">
+                                                    <span asp-validation-for="ReTypePassword" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="Address" name="Address" asp-for="Address">
+                                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Sign Up</button></div>
+                                            </form>
+                                        </div>
+                                        <!--Footer-->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <a data-toggle="modal" data-target="#modalLogin" class="btn btn-primary rounded-pill" style="color:white">Login</a>
                             <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -90,7 +146,7 @@
                                                 </span>
                                                 <div asp-validation-summary="All" class="text-danger"></div>
                                                 <div class="form-group">
-                                                    <input class="form-control" type="text" name="username" placeholder="Email" asp-for="Username">
+                                                    <input class="form-control" type="text" name="username" placeholder="Username" asp-for="Username">
                                                     <span asp-validation-for="Username" class="text-danger"></span>
                                                 </div>
                                                 <div class="form-group">
@@ -261,6 +317,8 @@
                             Need a help? <br>
                             Don't worry just contact us
                         </h1>
+                        <p>Email Us At: creditafrik@gmail.com</p>
+                        <p>Phone Us At: 09999999999</p>
 
                         <form method="POST" class="mt-5">
                             <div class="form-group wow fadeInUp">

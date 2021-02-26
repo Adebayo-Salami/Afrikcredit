@@ -72,14 +72,14 @@ namespace AfrikcreditServices
             {
                 if (String.IsNullOrWhiteSpace(email))
                 {
-                    message = "User Email Is Required";
+                    message = "Username Is Required";
                     return null;
                 }
 
-                user = _context.Users.Include(x => x.Wallet).FirstOrDefault(x => x.EmailAddress == email);
+                user = _context.Users.Include(x => x.Wallet).FirstOrDefault(x => x.Username == email);
                 if (user == null)
                 {
-                    message = "User with email " + email + " does not exists";
+                    message = "Username " + email + " does not exists";
                 }
             }
             catch (Exception error)
@@ -132,7 +132,7 @@ namespace AfrikcreditServices
                     return null;
                 }
 
-                loggedUser = _context.Users.Include(x => x.Wallet).FirstOrDefault(user => user.EmailAddress == email && user.Password == password);
+                loggedUser = _context.Users.Include(x => x.Wallet).FirstOrDefault(user => user.Username == email && user.Password == password);
                 if (loggedUser == null)
                 {
                     message = "No User with this credential exists";
@@ -166,8 +166,8 @@ namespace AfrikcreditServices
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new[] {
-                new Claim(JwtRegisteredClaimNames.Sub, loggedUser.EmailAddress),
-                new Claim(JwtRegisteredClaimNames.Email, loggedUser.EmailAddress),
+                new Claim(JwtRegisteredClaimNames.Sub, loggedUser.Username),
+                new Claim(JwtRegisteredClaimNames.Email, loggedUser.Username),
                 new Claim("Id", loggedUser.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
@@ -198,7 +198,7 @@ namespace AfrikcreditServices
             }
         }
 
-        public bool Register(string email, string password, string accountNumber, string bankName, string referral, string ans1, string ans2, string ans3, out string message)
+        public bool Register(string email, string password, string accountNumber, string bankName, string referral, out string message)
         {
             message = String.Empty;
             bool result = false;
@@ -207,7 +207,7 @@ namespace AfrikcreditServices
             {
                 if (String.IsNullOrWhiteSpace(email))
                 {
-                    message = "Email Is Required";
+                    message = "Username Is Required";
                     return false;
                 }
 
@@ -231,7 +231,7 @@ namespace AfrikcreditServices
 
                 if (CheckIfEmailExists(email))
                 {
-                    message = "User with this Email already exists";
+                    message = "User with this Username already exists";
                     return false;
                 }
 
@@ -239,42 +239,18 @@ namespace AfrikcreditServices
                 {
                     if (!CheckIfEmailExists(referral))
                     {
-                        message = "Referral with email " + referral + " does not exists. Please note that you can register without referral by leaving the referral field blank.";
+                        message = "Referral with username " + referral + " does not exists. Please note that you can register without referral by leaving the referral field blank.";
                         return false;
-                    }
-                    else
-                    {
-                        //User ReferralUser = _context.Users.Include(x => x.Wallet).FirstOrDefault(x => x.EmailAddress == referral);
-                        //ReferralUser.Wallet.Balance = ReferralUser.Wallet.Balance + 1000;
-                        //Transaction transaction = new Transaction()
-                        //{
-                        //    Amount = 1000,
-                        //    DateOfTransaction = DateTime.Now,
-                        //    TransactionDescription = "Referral Bonus of 1000 added to wallet for referring user " + email,
-                        //    TransactionType = TransactionType.Credit,
-                        //    User = ReferralUser
-                        //};
-                        //_context.Transactions.Add(transaction);
-                        //_context.Wallets.Update(ReferralUser.Wallet);
                     }
                 }
 
-                //if (String.IsNullOrWhiteSpace(ans1) || String.IsNullOrWhiteSpace(ans2) || String.IsNullOrWhiteSpace(ans3))
-                //{
-                //    message = "Apologies, All Secret Answers are required and compulsory, as this will be needed for password recovery.";
-                //    return result;
-                //}
-
                 User userRegistering = new User()
                 {
-                    EmailAddress = email,
+                    Username = email,
                     Password = password,
                     DateJoined = DateTime.Now,
                     LastLoginDate = DateTime.Now,
                     ReferredBy = referral,
-                    //SecretAnswer1 = ans1,
-                    //SecretAnswer2 = ans2,
-                    //SecretAnswer3 = ans3,
                     Wallet = new Wallet()
                     {
                         AccountNumber = accountNumber,
@@ -297,7 +273,7 @@ namespace AfrikcreditServices
 
         private bool CheckIfEmailExists(string email)
         {
-            return _context.Users.Any(x => x.EmailAddress == email);
+            return _context.Users.Any(x => x.Username == email);
         }
 
         public string RecoverPassword(string userEmail, string ans1, string ans2, string ans3, out string message)
@@ -309,11 +285,11 @@ namespace AfrikcreditServices
             {
                 if (String.IsNullOrWhiteSpace(userEmail))
                 {
-                    message = "User Email Is Required to retrieve password";
+                    message = "Username Is Required to retrieve password";
                     return result;
                 }
 
-                User user = _context.Users.Include(x => x.Wallet).FirstOrDefault(x => x.SecretAnswer1.ToLower() == ans1 && x.SecretAnswer2.ToLower() == ans2 && x.SecretAnswer3.ToLower() == ans3 && x.EmailAddress == userEmail);
+                User user = _context.Users.Include(x => x.Wallet).FirstOrDefault(x => x.SecretAnswer1.ToLower() == ans1 && x.SecretAnswer2.ToLower() == ans2 && x.SecretAnswer3.ToLower() == ans3 && x.Username == userEmail);
                 if (user == null)
                 {
                     message = "Password Recovery failed, Please ensure you input the correct answers (Your secret ans must match the secret ans provided at the point of account registration).";
@@ -374,14 +350,14 @@ namespace AfrikcreditServices
             {
                 if (String.IsNullOrWhiteSpace(userEmail))
                 {
-                    message = "User Email Is Required";
+                    message = "Username Is Required";
                     return result;
                 }
 
-                User user = _context.Users.Include(x => x.Wallet).FirstOrDefault(x => x.EmailAddress == userEmail);
+                User user = _context.Users.Include(x => x.Wallet).FirstOrDefault(x => x.Username == userEmail);
                 if (user == null)
                 {
-                    message = "Error, No user with the email " + userEmail + "exists.";
+                    message = "Error, No username " + userEmail + "exists.";
                     return result;
                 }
 
@@ -422,14 +398,14 @@ namespace AfrikcreditServices
             {
                 if (String.IsNullOrWhiteSpace(userEmail))
                 {
-                    message = "User Email Is Required";
+                    message = "Username Is Required";
                     return result;
                 }
 
-                User user = _context.Users.Include(x => x.Wallet).FirstOrDefault(x => x.EmailAddress == userEmail);
+                User user = _context.Users.Include(x => x.Wallet).FirstOrDefault(x => x.Username == userEmail);
                 if (user == null)
                 {
-                    message = "Error, No user with the email " + userEmail + "exists.";
+                    message = "Error, No username " + userEmail + "exists.";
                     return result;
                 }
 
@@ -550,39 +526,9 @@ namespace AfrikcreditServices
                     return result;
                 }
 
-                if (!String.IsNullOrWhiteSpace(firstName))
-                {
-                    user.FirstName = firstName;
-                }
-
-                if (!String.IsNullOrWhiteSpace(lastName))
-                {
-                    user.LastName = lastName;
-                }
-
                 if (!String.IsNullOrWhiteSpace(address))
                 {
                     user.Address = address;
-                }
-
-                if (!String.IsNullOrWhiteSpace(city))
-                {
-                    user.City = city;
-                }
-
-                if (!String.IsNullOrWhiteSpace(country))
-                {
-                    user.Country = country;
-                }
-
-                if (!String.IsNullOrWhiteSpace(postalCode))
-                {
-                    user.PostalCode = postalCode;
-                }
-
-                if (!String.IsNullOrWhiteSpace(aboutMe))
-                {
-                    user.AboutUser = aboutMe;
                 }
 
                 if (!String.IsNullOrWhiteSpace(secretAns1))
