@@ -20,4 +20,8 @@
     <ProjectReference Include="..\AfrikcreditServices\AfrikcreditServices.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\" />
+  </ItemGroup>
+
 </Project>

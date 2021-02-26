@@ -20,12 +20,12 @@ namespace Afrikcredit.Controllers
 
         public IActionResult Index()
         {
-            return View();
-        }
+            HomePageViewModel viewModel = new HomePageViewModel()
+            {
 
-        public IActionResult Privacy()
-        {
-            return View();
+            };
+
+            return View(viewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
