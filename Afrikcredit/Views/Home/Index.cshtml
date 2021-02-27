@@ -33,6 +33,7 @@
                 alert("@Model.DisplayMessage");
             </script>
         }
+
         <nav class="navbar navbar-expand-lg navbar-light navbar-floating">
             <div class="container">
                 <a class="navbar-brand" href="#">
@@ -69,7 +70,7 @@
                                 Afrikcredit has the best investment plans <br>
                                 you gain more financial power.
                             </p>
-                            <a href="#" class="btn btn-primary rounded-pill" data-toggle="modal" data-target="#modalRegister">Register Now</a>
+                            <a href="#" class="btn btn-primary rounded-pill" data-toggle="modal" data-target="#modalRegister" id="btnRegister">Register Now</a>
                             <div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -89,7 +90,7 @@
                                                 </span>
                                                 <div asp-validation-summary="All" class="text-danger"></div>
                                                 <div class="form-group">
-                                                    <input class="form-control" type="text" name="ReferralCode" placeholder="Ref Code (Not Compulsory)" asp-for="ReferralCode">
+                                                    <input class="form-control" type="text" name="ReferralCode" placeholder="Refferal (Optional)" asp-for="ReferralCode" value="@Model.ReferralCode">
                                                     <span asp-validation-for="ReferralCode" class="text-danger"></span>
                                                 </div>
                                                 <div class="form-group">
@@ -97,7 +98,7 @@
                                                     <span asp-validation-for="Username" class="text-danger"></span>
                                                 </div>
                                                 <div class="form-group">
-                                                    <input class="form-control" type="text" placeholder="Bank Name (E.g Firstbank)" name="BankName" asp-for="BankName">
+                                                    <input class="form-control" type="text" placeholder="Bank Name" name="BankName" asp-for="BankName">
                                                     <span asp-validation-for="BankName" class="text-danger"></span>
                                                 </div>
                                                 <div class="form-group">
@@ -113,7 +114,7 @@
                                                     <span asp-validation-for="Password" class="text-danger"></span>
                                                 </div>
                                                 <div class="form-group">
-                                                    <input class="form-control" type="password" name="ReTypePassword" placeholder="Password (repeat)" asp-for="ReTypePassword">
+                                                    <input class="form-control" type="password" name="ReTypePassword" placeholder="Password (retype)" asp-for="ReTypePassword">
                                                     <span asp-validation-for="ReTypePassword" class="text-danger"></span>
                                                 </div>
                                                 <div class="form-group">
@@ -367,6 +368,15 @@
                 </div>
             </div>
         </div>
+
+        @if (!String.IsNullOrWhiteSpace(Model.ReferralCode))
+        {
+            <script>
+                window.setTimeout(function () {
+                    document.getElementById("btnRegister").click();
+                }, 1000)
+            </script>
+        }
 
         <script src="assets/js/jquery-3.5.1.min.js"></script>
 

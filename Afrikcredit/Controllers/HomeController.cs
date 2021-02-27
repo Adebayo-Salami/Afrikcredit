@@ -23,13 +23,14 @@ namespace Afrikcredit.Controllers
             _userService = userService;
         }
 
-        public IActionResult Index(string username = "", string password = "")
+        public IActionResult Index(string reffered = "")
         {
             string _displayMessage = HttpContext.Session.GetString("DisplayMessage");
 
             HomePageViewModel viewModel = new HomePageViewModel()
             {
                 DisplayMessage = _displayMessage,
+                ReferralCode = reffered,
             };
 
             HttpContext.Session.SetString("DisplayMessage", String.Empty);
