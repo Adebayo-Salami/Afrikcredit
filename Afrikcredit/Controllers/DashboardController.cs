@@ -51,6 +51,9 @@ namespace Afrikcredit.Controllers
                 IsAdmin = loggedUser.isAdmin,
                 PhoneNumber = loggedUser.PhoneNumber,
                 Notifications = _notificationService.GetAll(),
+                UserInvestments = _userInvestmentService.GetAllUserInvestments(loggedUser.Id),
+                AvailableInvestments = _userInvestmentService.GetAllInvestments(),
+                Balance = (loggedUser.Wallet == null) ? 0 : loggedUser.Wallet.Balance,
             };
 
             HttpContext.Session.SetString("DisplayMessage", String.Empty);
