@@ -361,6 +361,75 @@ namespace Afrikcredit.Controllers
             return RedirectToAction("Index", "Dashboard");
         }
 
+        [HttpGet]
+        public IActionResult PurchaseANewInvestment(string investmentID)
+        {
+            //Check Authentication
+            string userId = HttpContext.Session.GetString("UserID");
+            string authenticationToken = HttpContext.Session.GetString("AuthorizationToken");
+            bool userLogged = _userService.CheckUserAuthentication(Convert.ToInt64(userId), authenticationToken, out User loggedUser);
+            if (!userLogged)
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Please, Kindly login. Your session has expired.");
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (String.IsNullOrWhiteSpace(investmentID))
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Kindly, select an investment plan.");
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+            try
+            {
+                int checkId = Convert.ToInt32(investmentID);
+            }
+            catch
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Error, Invalid investment ID passed.");
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+            bool IsInvestmentMade = _userInvestmentService.CreateInvestment(Convert.ToInt32(investmentID), loggedUser.Id, out string message);
+            if (!IsInvestmentMade)
+            {
+                HttpContext.Session.SetString("DisplayMessage", message);
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+            HttpContext.Session.SetString("DisplayMessage", "User has successfully started a new investment");
+            return RedirectToAction("Index", "Dashboard");
+        }
+
+        public IActionResult PlaceWithdrawal(long userInvestmentId, int percentage)
+        {
+            //Check Authentication
+            string userId = HttpContext.Session.GetString("UserID");
+            string authenticationToken = HttpContext.Session.GetString("AuthorizationToken");
+            bool userLogged = _userService.CheckUserAuthentication(Convert.ToInt64(userId), authenticationToken, out User loggedUser);
+            if (!userLogged)
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Please, Kindly login. Your session has expired.");
+                return RedirectToAction("Index", "Home");
+            }
+
+            if(percentage < 100)
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Sorry, Investment is not yet fully matured. User cannot place withrawal yet!");
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+            bool IsWithdrawalPlaced = _userInvestmentService.PlaceWithdrawal(userInvestmentId, out string message);
+            if (!IsWithdrawalPlaced)
+            {
+                HttpContext.Session.SetString("DisplayMessage", message);
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+            HttpContext.Session.SetString("DisplayMessage", "Withdrawal request made successfully.");
+            return RedirectToAction("Index", "Dashboard");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
