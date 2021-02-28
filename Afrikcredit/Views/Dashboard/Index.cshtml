@@ -145,7 +145,7 @@
                                                         <h5 class="mb-0 font-weight-medium text-primary">Input Coupon Code</h5>
                                                     </div>
                                                     <div class="wrapper my-auto ml-auto ml-lg-4">
-                                                        <button class="btn btn-primary">Fund</button>
+                                                        <button class="btn btn-primary" onclick="location.href = '@Url.Action("FundUserAccount", "Dashboard", new { coupon = "__coupon__"})'.replace('__coupon__', document.getElementById('txtCoupon').value)">Fund</button>
                                                     </div>
                                                 </div>
                                             </div>

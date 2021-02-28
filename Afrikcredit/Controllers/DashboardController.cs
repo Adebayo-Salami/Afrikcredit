@@ -331,6 +331,36 @@ namespace Afrikcredit.Controllers
             return RedirectToAction("Admin", "Dashboard");
         }
 
+        [HttpGet]
+        public IActionResult FundUserAccount(string coupon)
+        {
+            //Check Authentication
+            string userId = HttpContext.Session.GetString("UserID");
+            string authenticationToken = HttpContext.Session.GetString("AuthorizationToken");
+            bool userLogged = _userService.CheckUserAuthentication(Convert.ToInt64(userId), authenticationToken, out User loggedUser);
+            if (!userLogged)
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Please, Kindly login. Your session has expired.");
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (String.IsNullOrWhiteSpace(coupon))
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Sorry, You must enter a coupon code.");
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+            bool IsAccountFunded = _walletService.FundWallet(loggedUser.Id, coupon, out string message);
+            if (!IsAccountFunded)
+            {
+                HttpContext.Session.SetString("DisplayMessage", message);
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+            HttpContext.Session.SetString("DisplayMessage", "Coupon has been applied successfully, Account Funded!");
+            return RedirectToAction("Index", "Dashboard");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
