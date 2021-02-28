@@ -430,6 +430,76 @@ namespace Afrikcredit.Controllers
             return RedirectToAction("Index", "Dashboard");
         }
 
+        [HttpPost]
+        public IActionResult TransferFunds(DashboardViewModel data)
+        {
+            //Check Authentication
+            string userId = HttpContext.Session.GetString("UserID");
+            string authenticationToken = HttpContext.Session.GetString("AuthorizationToken");
+            bool userLogged = _userService.CheckUserAuthentication(Convert.ToInt64(userId), authenticationToken, out User loggedUser);
+            if (!userLogged)
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Please, Kindly login. Your session has expired.");
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (String.IsNullOrWhiteSpace(data.ReceipentUsername))
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Please, enter the username of the receipent you want to transfer to.");
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+            double amt = 0;
+            try
+            {
+                amt = Convert.ToDouble(data.Amount);
+            }
+            catch
+            {
+                HttpContext.Session.SetString("DisplayMessage", "kindly input valid amount.");
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+            bool IsTransferred = _walletService.TransferFunds(loggedUser.Id, amt, data.ReceipentUsername, out string message);
+            if (!IsTransferred)
+            {
+                HttpContext.Session.SetString("DisplayMessage", message);
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+            HttpContext.Session.SetString("DisplayMessage", "SUCCESS!  " + data.Amount + " naira has been transferred to " + data.ReceipentUsername + ".");
+            return RedirectToAction("Index", "Dashboard");
+        }
+
+        public IActionResult WithdrawToWallet(long userInvestmentId, int percentage)
+        {
+            //Check Authentication
+            string userId = HttpContext.Session.GetString("UserID");
+            string authenticationToken = HttpContext.Session.GetString("AuthorizationToken");
+            bool userLogged = _userService.CheckUserAuthentication(Convert.ToInt64(userId), authenticationToken, out User loggedUser);
+            if (!userLogged)
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Please, Kindly login. Your session has expired.");
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (percentage < 100)
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Sorry, Investment is not yet fully matured. User cannot place withrawal yet!");
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+            bool IsWithdrawalPlaced = _userInvestmentService.WithdrawToWallet(userInvestmentId, out string message);
+            if (!IsWithdrawalPlaced)
+            {
+                HttpContext.Session.SetString("DisplayMessage", message);
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+            HttpContext.Session.SetString("DisplayMessage", "Funds have been successfully withdrawn to wallet account.");
+            return RedirectToAction("Index", "Dashboard");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

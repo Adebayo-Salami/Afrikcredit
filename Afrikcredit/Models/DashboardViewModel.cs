@@ -18,7 +18,7 @@ namespace Afrikcredit.Models
         public string CouponCode { get; set; }
         public double AmountGained(double amtToBeGotten, int investmentPercentage)
         {
-            return 0;
+            return (investmentPercentage / 100) * amtToBeGotten;
         }
         public int GetInvestmentMaturityPercentage(DateTime dateOfInvestment, int investmentDuration = 0)
         {
@@ -35,5 +35,7 @@ namespace Afrikcredit.Models
 
             return result;
         }
+        public string Amount { get; set; }
+        public string ReceipentUsername { get; set; }
     }
 }

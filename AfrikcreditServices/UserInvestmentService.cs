@@ -248,5 +248,67 @@ namespace AfrikcreditServices
 
             return result;
         }
+
+        public bool WithdrawToWallet(long userInvestmentId, out string message)
+        {
+            bool result = false;
+            message = String.Empty;
+
+            try
+            {
+                if (userInvestmentId <= 0)
+                {
+                    message = "Invalid User Investment ID";
+                    return result;
+                }
+
+                UserInvestment userInvestment = _context.UserInvestments.Include(x => x.User).Include(x => x.User.Wallet).Include(x => x.Investment).FirstOrDefault(x => x.Id == userInvestmentId && x.InvestmentStatus == InvestmentStatus.Pending);
+                if (userInvestment == null)
+                {
+                    message = "Error, No Pending User Investment is associated to the passed ID.";
+                    return result;
+                }
+
+                if (userInvestment.IsWithdrawing)
+                {
+                    message = "Withdrawal has already been placed for this current investment.";
+                    return result;
+                }
+
+                if (userInvestment.IsDeactivated)
+                {
+                    message = "User Investment has been deactivated.";
+                    return result;
+                }
+
+                TimeSpan investmentTimeSpan = DateTime.Now - userInvestment.DateInvested;
+                if (investmentTimeSpan.TotalDays < userInvestment.Investment.DaysDuration)
+                {
+                    message = "Sorry, your investment is not matured.";
+                    return result;
+                }
+
+                if(userInvestment.User.Wallet == null)
+                {
+                    message = "Error, No wallet is linked to user account.";
+                    return result;
+                }
+
+                userInvestment.User.Wallet.Balance = userInvestment.User.Wallet.Balance + userInvestment.Investment.AmountToBeGotten;
+                userInvestment.InvestmentStatus = InvestmentStatus.Paid;
+                userInvestment.DateWithdrawalPlaced = DateTime.Now;
+                _context.UserInvestments.Update(userInvestment);
+                _context.Wallets.Update(userInvestment.User.Wallet);
+                _context.SaveChanges();
+                result = true;
+            }
+            catch (Exception error)
+            {
+                message = error.Message;
+                result = false;
+            }
+
+            return result;
+        }
     }
 }

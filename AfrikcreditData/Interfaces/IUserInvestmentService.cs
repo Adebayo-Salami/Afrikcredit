@@ -13,5 +13,6 @@ namespace AfrikcreditData.Interfaces
         List<UserInvestment> GetAllMaturedUserInvestments();
         bool SetUserInvestmentToPaid(long userInvestmentId, out string message);
         bool PlaceWithdrawal(long userInvestmentId, out string message);
+        bool WithdrawToWallet(long userInvestmentId, out string message);
     }
 }

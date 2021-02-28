@@ -124,7 +124,34 @@
                                                         <h5 class="mb-0 font-weight-medium text-primary">Balance</h5>
                                                     </div>
                                                     <div class="wrapper my-auto ml-auto ml-lg-4">
-                                                        <canvas height="50" width="100" id="money"></canvas>
+                                                        <button class="btn btn-info" data-toggle="modal" data-target="#modalTransfer">Transfer</button>
+                                                        <div class="modal fade" id="modalTransfer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <!--Header-->
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title" id="myModalLabel">Transfer From Wallet</h4>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">×</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <!--Body-->
+                                                                    <div class="modal-body">
+                                                                        <form method="post" asp-action="TransferFunds" asp-controller="Admin">
+                                                                            <input style="color:black" class="form-control" type="text" placeholder="Username" name="ReceipentUsername" asp-for="ReceipentUsername">
+                                                                            <br /><br />
+                                                                            <input style="color:black" class="form-control" type="text" placeholder="Amount" name="Amount" asp-for="Amount">
+                                                                            <br /><br />
+                                                                            <button class="btn btn-info">SEND</button>
+                                                                        </form>
+                                                                    </div>
+                                                                    <!--Footer-->
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -238,7 +265,7 @@
                                             <p>You can view and monitor your active investements here. Please note that your profits will be added the amount shown on your active investment balance every minute. Once it reaches the total investment amount, click on the withdraw button.</p>
                                             <br />
                                             <div class="row">
-                                                @if(Model.UserInvestments.Count <= 0)
+                                                @if (Model.UserInvestments.Count <= 0)
                                                 {
                                                     <h4><i>User has no active investments yet!</i></h4>
                                                 }
@@ -254,9 +281,29 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex justify-content-between">
-                                                                    <h5 class="font-weight-semibold mb-0">@userInvestment.Investment.Name</h5>
+                                                                    <small class="font-weight-semibold mb-0">@userInvestment.Investment.Name</small>
                                                                     <p class="text-white mb-0">Click to withdraw</p>
                                                                 </div>
+                                                                <br />
+                                                                @if (Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration) < 100)
+                                                                {
+                                                                    <button class="btn btn-info btn-round" disabled="disabled">Withdraw To Wallet</button>
+                                                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                                                                    <button class="btn btn-primary btn-round text-white mb-0" disabled="disabled">Withdraw To Bank</button>
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (userInvestment.IsWithdrawing)
+                                                                    {
+                                                                        <button class="btn btn-danger btn-round" onclick="location.href='@Url.Action("WithdrawToWallet", "Dashboard", new { userInvestmentId = userInvestment.Id, percentage = Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration) })'">Cancel Withdrawal</button>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <button class="btn btn-info btn-round" onclick="location.href='@Url.Action("WithdrawToWallet", "Dashboard", new { userInvestmentId = userInvestment.Id, percentage = Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration) })'">Withdraw To Wallet</button>
+                                                                        <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                                                                        <button class="btn btn-primary btn-round" onclick="location.href='@Url.Action("PlaceWithdrawal", "Dashboard", new { userInvestmentId = userInvestment.Id, percentage = Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration) })'">Withdraw To Bank</button>
+                                                                    }
+                                                                }
                                                             </div>
                                                         </div>
                                                     </div>
