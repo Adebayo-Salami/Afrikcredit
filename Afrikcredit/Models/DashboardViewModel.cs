@@ -16,9 +16,9 @@ namespace Afrikcredit.Models
         public List<AfrikcreditData.Models.UserInvestment> UserInvestments { get; set; }
         public List<AfrikcreditData.Models.Investment> AvailableInvestments { get; set; }
         public string CouponCode { get; set; }
-        public double AmountGained(double amtToBeGotten, int investmentPercentage)
+        public decimal AmountGained(double amtToBeGotten, int investmentPercentage)
         {
-            return (investmentPercentage / 100) * amtToBeGotten;
+            return Convert.ToDecimal(investmentPercentage) / 100m * (decimal)amtToBeGotten;
         }
         public int GetInvestmentMaturityPercentage(DateTime dateOfInvestment, int investmentDuration = 0)
         {
