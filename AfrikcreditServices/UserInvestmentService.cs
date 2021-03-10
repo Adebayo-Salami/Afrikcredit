@@ -269,11 +269,11 @@ namespace AfrikcreditServices
                     return result;
                 }
 
-                if (userInvestment.IsWithdrawing)
-                {
-                    message = "Withdrawal has already been placed for this current investment.";
-                    return result;
-                }
+                //if (userInvestment.IsWithdrawing)
+                //{
+                //    message = "Withdrawal has already been placed for this current investment.";
+                //    return result;
+                //}
 
                 if (userInvestment.IsDeactivated)
                 {

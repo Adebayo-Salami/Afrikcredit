@@ -111,8 +111,8 @@
 
                 <div class="main-panel">
                     <div class="content-wrapper">
-                        <h6 style="color:white">Total Users Registered On The Platform: @Model.TotalUsersRegisteredOnPlatform</h6>
-                        <h6 style="color:white">Total Users Engaged In An Active Investment: @Model.TotalUsersWithActiveInvestment</h6>
+                        <h6 style="color:black">Total Users Registered On The Platform: @Model.TotalUsersRegisteredOnPlatform</h6>
+                        <h6 style="color:black">Total Users Engaged In An Active Investment: @Model.TotalUsersWithActiveInvestment</h6>
                         <div class="modal fade" id="modalAddNewNotification" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -200,37 +200,6 @@
                                 </div>
                             </div>
                         </div>
-                        @*<div class="row">
-                            <div class="col-lg-12 grid-margin stretch-card">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Notification List <button class="btn btn-primary btn-round" onclick="GetAddNewNotificationPartial()" style="background-color:darkblue">Add New Notification</button></h4>
-                                        <p class="card-description">You can manage your notifications here.</p>
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Date Posted</th>
-                                                    <th>Message</th>
-                                                    <th>Posted By</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var notification in Model.Notifications)
-                                                {
-                                                    <tr>
-                                                        <td>@notification.DatePosted</td>
-                                                        <td>@notification.Message</td>
-                                                        <td>Admin</td>
-                                                        <td><input type="button" value="Remove" class="btn btn-primary btn-round" onclick="location.href='@Url.Action("RemoveNotification", "Dashboard", new { notificationID = notification.Id })'" /></td>
-                                                    </tr>
-                                                }
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>*@
 
                         <div class="row">
                             <div class="col-lg-12 grid-margin stretch-card">
