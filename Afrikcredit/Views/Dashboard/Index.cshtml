@@ -293,9 +293,11 @@
                                                                 }
                                                                 else
                                                                 {
-                                                                    <button class="btn btn-info btn-round" onclick="location.href='@Url.Action("WithdrawToWallet", "Dashboard", new { userInvestmentId = userInvestment.Id, percentage = Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration), amount = Model.AmountGained(userInvestment.Investment.AmountToBeGotten, Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration)) })'">Withdraw To Wallet</button>
+                                                                    <button id="btnWalletWithdrawal" class="btn btn-info btn-round" onclick="WithrawWallet(@userInvestment.Id, @Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration), @Model.AmountGained(userInvestment.Investment.AmountToBeGotten, Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration)))">Withdraw To Wallet</button>
+                                                                    @*<button id="btnWalletWithdrawal" class="btn btn-info btn-round" onclick="location.href='@Url.Action("WithdrawToWallet", "Dashboard", new { userInvestmentId = userInvestment.Id, percentage = Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration), amount = Model.AmountGained(userInvestment.Investment.AmountToBeGotten, Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration)) })'">Withdraw To Wallet</button>*@
                                                                     <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                                                                    <button class="btn btn-primary btn-round" onclick="location.href='@Url.Action("PlaceWithdrawal", "Dashboard", new { userInvestmentId = userInvestment.Id, percentage = Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration), amount = Model.AmountGained(userInvestment.Investment.AmountToBeGotten, Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration)) })'">Withdraw To Bank</button>
+                                                                    <button id="btnBankWithdrawal" class="btn btn-primary btn-round" onclick="WithrawBank(@userInvestment.Id, @Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration), @Model.AmountGained(userInvestment.Investment.AmountToBeGotten, Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration)))">Withdraw To Bank</button>
+                                                                    @*<button id="btnBankWithdrawal" class="btn btn-primary btn-round" onclick="location.href='@Url.Action("PlaceWithdrawal", "Dashboard", new { userInvestmentId = userInvestment.Id, percentage = Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration), amount = Model.AmountGained(userInvestment.Investment.AmountToBeGotten, Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration)) })'">Withdraw To Bank</button>*@
                                                                 }
                                                                 @*@if (Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration) < 100)
                                                                 {
@@ -347,6 +349,31 @@
 
         </div>
 
+        <script>
+            function WithrawWallet(investmentID, percentage, amount) {
+                if (confirm('Are you sure?')) {
+                    window.location.href = "@Html.Raw(Url.Action("WithdrawToWallet", "Dashboard", new { userInvestmentId = "__investID__", percentage = "__percent__", amount = "__amt__" }))"
+                        .replace('__percent__', percentage)
+                        .replace('__investID__', investmentID)
+                        .replace('__amt__', amount);
+                }
+                else {
+                    return false;
+                }
+            }
+
+            function WithrawBank(investmentID, percentage, amount) {
+                if (confirm('Are you sure?')) {
+                    window.location.href = "@Html.Raw(Url.Action("PlaceWithdrawal", "Dashboard", new { userInvestmentId = "__investID__", percentage = "__percent__", amount = "__amt__" }))"
+                        .replace('__percent__', percentage)
+                        .replace('__investID__', investmentID)
+                        .replace('__amt__', amount);
+                }
+                else {
+                    return false;
+                }
+            }
+        </script>
         <!-- plugins:js -->
         <script src="~/assets2/vendors/js/vendor.bundle.base.js"></script>
         <script src="~/assets2/vendors/js/vendor.bundle.addons.js"></script>

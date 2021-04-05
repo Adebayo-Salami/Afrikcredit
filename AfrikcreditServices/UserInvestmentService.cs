@@ -193,12 +193,6 @@ namespace AfrikcreditServices
                     return result;
                 }
 
-                //TimeSpan investmentTimeSpan = DateTime.Now - userInvestment.DateInvested;
-                //if (investmentTimeSpan.TotalDays < userInvestment.Investment.DaysDuration)
-                //{
-                //    message = "Sorry, your investment is not matured.";
-                //    return result;
-                //}
                 bool isWithdrawingAllowed = (_context.Investments.FirstOrDefault() == null) ? false : _context.Investments.FirstOrDefault().IsWithdrawalAllowed;
                 if (!isWithdrawingAllowed)
                 {
@@ -314,13 +308,6 @@ namespace AfrikcreditServices
                     message = "User Investment has been deactivated.";
                     return result;
                 }
-
-                //TimeSpan investmentTimeSpan = DateTime.Now - userInvestment.DateInvested;
-                //if (investmentTimeSpan.TotalDays < userInvestment.Investment.DaysDuration)
-                //{
-                //    message = "Sorry, your investment is not matured.";
-                //    return result;
-                //}
 
                 if(userInvestment.User.Wallet == null)
                 {

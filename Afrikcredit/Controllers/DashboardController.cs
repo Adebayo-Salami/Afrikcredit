@@ -502,7 +502,7 @@ namespace Afrikcredit.Controllers
             return RedirectToAction("Index", "Dashboard");
         }
 
-        public IActionResult WithdrawToWallet(long userInvestmentId, int percentage, double amount)
+        public IActionResult WithdrawToWallet(long userInvestmentId, int percentage, decimal amount)
         {
             //Check Authentication
             string userId = HttpContext.Session.GetString("UserID");
@@ -520,7 +520,7 @@ namespace Afrikcredit.Controllers
             //    return RedirectToAction("Index", "Dashboard");
             //}
 
-            bool IsWithdrawalPlaced = _userInvestmentService.WithdrawToWallet(userInvestmentId, amount, out string message);
+            bool IsWithdrawalPlaced = _userInvestmentService.WithdrawToWallet(userInvestmentId, Convert.ToDouble(amount), out string message);
             if (!IsWithdrawalPlaced)
             {
                 HttpContext.Session.SetString("DisplayMessage", message);
