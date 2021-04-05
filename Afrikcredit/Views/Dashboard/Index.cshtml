@@ -264,6 +264,7 @@
                                             <h4 class="card-title mb-0">Running Investments</h4>
                                             <p>Please note that your profits will be added the amount shown on your active investment balance every minute. Once it reaches the total investment amount, click on the withdraw button.</p>
                                             <p>we have two withdrawal option withdraw to bank and withdraw to wallet and also you can also cancel your withdrawal to bank and move it to your wallet.</p>
+                                            <p>Withdrawal Enabled: <b>@Model.AvailableInvestments.FirstOrDefault().IsWithdrawalAllowed</b></p>
                                             <br />
                                             <div class="row">
                                                 @if (Model.UserInvestments.Count <= 0)
@@ -276,7 +277,7 @@
                                                         <div class="card text-white">
                                                             <div class="card-body">
                                                                 <div class="d-flex justify-content-between pb-2 align-items-center">
-                                                                    <h2 class="font-weight-semibold mb-0">@Model.AmountGained(userInvestment.Investment.AmountToBeGotten, Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration))</h2>
+                                                                    <h2 class="font-weight-semibold mb-0">@Model.AmountGained(userInvestment.Investment.AmountToBeGotten, Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration), userInvestment.IsWithdrawing, userInvestment.AmountToWithdraw)</h2>
                                                                     <div class="icon-holder">
                                                                         <i class="mdi mdi-bank" style="cursor: pointer;" onclick="location.href='@Url.Action("PlaceWithdrawal", "Dashboard", new { userInvestmentId = userInvestment.Id, percentage = Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration) })'"></i>
                                                                     </div>
@@ -286,7 +287,17 @@
                                                                     <p class="text-white mb-0">Click to withdraw</p>
                                                                 </div>
                                                                 <br />
-                                                                @if (Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration) < 100)
+                                                                @if (userInvestment.IsWithdrawing)
+                                                                {
+                                                                    <button class="btn btn-danger btn-round" disabled="disabled">Is Withdrawing (Bank)....</button>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <button class="btn btn-info btn-round" onclick="location.href='@Url.Action("WithdrawToWallet", "Dashboard", new { userInvestmentId = userInvestment.Id, percentage = Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration), amount = Model.AmountGained(userInvestment.Investment.AmountToBeGotten, Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration)) })'">Withdraw To Wallet</button>
+                                                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                                                                    <button class="btn btn-primary btn-round" onclick="location.href='@Url.Action("PlaceWithdrawal", "Dashboard", new { userInvestmentId = userInvestment.Id, percentage = Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration), amount = Model.AmountGained(userInvestment.Investment.AmountToBeGotten, Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration)) })'">Withdraw To Bank</button>
+                                                                }
+                                                                @*@if (Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration) < 100)
                                                                 {
                                                                     <button class="btn btn-info btn-round" disabled="disabled">Withdraw To Wallet</button>
                                                                     <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
@@ -296,15 +307,15 @@
                                                                 {
                                                                     if (userInvestment.IsWithdrawing)
                                                                     {
-                                                                        <button class="btn btn-danger btn-round" onclick="location.href='@Url.Action("WithdrawToWallet", "Dashboard", new { userInvestmentId = userInvestment.Id, percentage = Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration) })'">Cancel Withdrawal</button>
+                                                                        <button class="btn btn-danger btn-round" onclick="location.href='@Url.Action("WithdrawToWallet", "Dashboard", new { userInvestmentId = userInvestment.Id, percentage = Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration), amount = Model.AmountGained(userInvestment.Investment.AmountToBeGotten, Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration)) })'">Cancel Withdrawal</button>
                                                                     }
                                                                     else
                                                                     {
-                                                                        <button class="btn btn-info btn-round" onclick="location.href='@Url.Action("WithdrawToWallet", "Dashboard", new { userInvestmentId = userInvestment.Id, percentage = Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration) })'">Withdraw To Wallet</button>
+                                                                        <button class="btn btn-info btn-round" onclick="location.href='@Url.Action("WithdrawToWallet", "Dashboard", new { userInvestmentId = userInvestment.Id, percentage = Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration), amount = Model.AmountGained(userInvestment.Investment.AmountToBeGotten, Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration)) })'">Withdraw To Wallet</button>
                                                                         <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                                                                        <button class="btn btn-primary btn-round" onclick="location.href='@Url.Action("PlaceWithdrawal", "Dashboard", new { userInvestmentId = userInvestment.Id, percentage = Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration) })'">Withdraw To Bank</button>
+                                                                        <button class="btn btn-primary btn-round" onclick="location.href='@Url.Action("PlaceWithdrawal", "Dashboard", new { userInvestmentId = userInvestment.Id, percentage = Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration), amount = Model.AmountGained(userInvestment.Investment.AmountToBeGotten, Model.GetInvestmentMaturityPercentage(userInvestment.DateInvested, userInvestment.Investment.DaysDuration)) })'">Withdraw To Bank</button>
                                                                     }
-                                                                }
+                                                                }*@
                                                             </div>
                                                         </div>
                                                     </div>

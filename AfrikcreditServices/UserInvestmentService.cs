@@ -161,7 +161,7 @@ namespace AfrikcreditServices
             return _context.UserInvestments.Include(x => x.User).Include(x => x.Investment).Include(x => x.User.Wallet).Where(x => x.User.Id == userId && x.InvestmentStatus == InvestmentStatus.Pending).ToList();
         }
 
-        public bool PlaceWithdrawal(long userInvestmentId, out string message)
+        public bool PlaceWithdrawal(long userInvestmentId, double amtToWithdraw, out string message)
         {
             bool result = false;
             message = String.Empty;
@@ -193,13 +193,25 @@ namespace AfrikcreditServices
                     return result;
                 }
 
-                TimeSpan investmentTimeSpan = DateTime.Now - userInvestment.DateInvested;
-                if (investmentTimeSpan.TotalDays < userInvestment.Investment.DaysDuration)
+                //TimeSpan investmentTimeSpan = DateTime.Now - userInvestment.DateInvested;
+                //if (investmentTimeSpan.TotalDays < userInvestment.Investment.DaysDuration)
+                //{
+                //    message = "Sorry, your investment is not matured.";
+                //    return result;
+                //}
+                bool isWithdrawingAllowed = (_context.Investments.FirstOrDefault() == null) ? false : _context.Investments.FirstOrDefault().IsWithdrawalAllowed;
+                if (!isWithdrawingAllowed)
                 {
-                    message = "Sorry, your investment is not matured.";
+                    message = "Withdrawal is currently not enabled, Kindly check back later for when admin enables withdrawal.";
                     return result;
                 }
 
+                if(amtToWithdraw > userInvestment.Investment.AmountToBeGotten)
+                {
+                    amtToWithdraw = userInvestment.Investment.AmountToBeGotten;
+                }
+
+                userInvestment.AmountToWithdraw = amtToWithdraw;
                 userInvestment.IsWithdrawing = true;
                 userInvestment.DateWithdrawalPlaced = DateTime.Now;
                 _context.UserInvestments.Update(userInvestment);
@@ -249,7 +261,29 @@ namespace AfrikcreditServices
             return result;
         }
 
-        public bool WithdrawToWallet(long userInvestmentId, out string message)
+        public bool ToggleInvestmentWithdawalStatus(out string message)
+        {
+            bool result;
+            message = String.Empty;
+
+            try
+            {
+                Investment Investment = _context.Investments.FirstOrDefault();
+                Investment.IsWithdrawalAllowed = !Investment.IsWithdrawalAllowed;
+                _context.Investments.Update(Investment);
+                _context.SaveChanges();
+                result = true;
+            }
+            catch(Exception err)
+            {
+                message = err.Message;
+                result = false;
+            }
+
+            return result;
+        }
+
+        public bool WithdrawToWallet(long userInvestmentId, double amtToWithdraw, out string message)
         {
             bool result = false;
             message = String.Empty;
@@ -281,12 +315,12 @@ namespace AfrikcreditServices
                     return result;
                 }
 
-                TimeSpan investmentTimeSpan = DateTime.Now - userInvestment.DateInvested;
-                if (investmentTimeSpan.TotalDays < userInvestment.Investment.DaysDuration)
-                {
-                    message = "Sorry, your investment is not matured.";
-                    return result;
-                }
+                //TimeSpan investmentTimeSpan = DateTime.Now - userInvestment.DateInvested;
+                //if (investmentTimeSpan.TotalDays < userInvestment.Investment.DaysDuration)
+                //{
+                //    message = "Sorry, your investment is not matured.";
+                //    return result;
+                //}
 
                 if(userInvestment.User.Wallet == null)
                 {
@@ -294,7 +328,20 @@ namespace AfrikcreditServices
                     return result;
                 }
 
-                userInvestment.User.Wallet.Balance = userInvestment.User.Wallet.Balance + userInvestment.Investment.AmountToBeGotten;
+                bool isWithdrawingAllowed = (_context.Investments.FirstOrDefault() == null) ? false : _context.Investments.FirstOrDefault().IsWithdrawalAllowed;
+                if (!isWithdrawingAllowed)
+                {
+                    message = "Withdrawal is currently not enabled, Kindly check back later for when admin enables withdrawal.";
+                    return result;
+                }
+
+                if (amtToWithdraw > userInvestment.Investment.AmountToBeGotten)
+                {
+                    amtToWithdraw = userInvestment.Investment.AmountToBeGotten;
+                }
+
+                userInvestment.AmountToWithdraw = amtToWithdraw;
+                userInvestment.User.Wallet.Balance = userInvestment.User.Wallet.Balance + userInvestment.AmountToWithdraw;
                 userInvestment.InvestmentStatus = InvestmentStatus.Paid;
                 userInvestment.DateWithdrawalPlaced = DateTime.Now;
                 _context.UserInvestments.Update(userInvestment);

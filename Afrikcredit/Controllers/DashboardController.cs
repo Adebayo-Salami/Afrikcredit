@@ -116,6 +116,7 @@ namespace Afrikcredit.Controllers
                 AllMaturedUserInvestments = _userInvestmentService.GetAllMaturedUserInvestments(),
                 TotalUsersRegisteredOnPlatform = _userService.GetTotalUserRegistered(),
                 TotalUsersWithActiveInvestment = _userService.GetTotalUsersEngagedInInvestment(),
+                CanUsersWithdrawStatus = _userInvestmentService.GetAllInvestments().FirstOrDefault() == null ? false : _userInvestmentService.GetAllInvestments().FirstOrDefault().IsWithdrawalAllowed,
             };
 
             if (!String.IsNullOrWhiteSpace(_couponCode))
@@ -262,6 +263,36 @@ namespace Afrikcredit.Controllers
             return RedirectToAction("Admin", "Dashboard");
         }
 
+        public IActionResult ToggleWithdrawalMode()
+        {
+            //Check Authentication
+            string Id = HttpContext.Session.GetString("UserID");
+            string authenticationToken = HttpContext.Session.GetString("AuthorizationToken");
+
+            bool userLogged = _userService.CheckUserAuthentication(Convert.ToInt64(Id), authenticationToken, out User loggedUser);
+            if (!userLogged)
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Please, Kindly login. Your session has expired.");
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (!loggedUser.isAdmin)
+            {
+                HttpContext.Session.SetString("DisplayMessage", "Your not authorized to view that page.");
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+            bool IsToggled = _userInvestmentService.ToggleInvestmentWithdawalStatus(out string message);
+            if (!IsToggled)
+            {
+                HttpContext.Session.SetString("DisplayMessage", message);
+                return RedirectToAction("Admin", "Dashboard");
+            }
+
+            HttpContext.Session.SetString("DisplayMessage", "Withdrawal Mode toggled successfully!");
+            return RedirectToAction("Admin", "Dashboard");
+        }
+
         public IActionResult DeactivateCouponUser(string userEmail)
         {
             //Check Authentication
@@ -401,7 +432,7 @@ namespace Afrikcredit.Controllers
             return RedirectToAction("Index", "Dashboard");
         }
 
-        public IActionResult PlaceWithdrawal(long userInvestmentId, int percentage)
+        public IActionResult PlaceWithdrawal(long userInvestmentId, int percentage, decimal amount)
         {
             //Check Authentication
             string userId = HttpContext.Session.GetString("UserID");
@@ -419,7 +450,7 @@ namespace Afrikcredit.Controllers
                 return RedirectToAction("Index", "Dashboard");
             }
 
-            bool IsWithdrawalPlaced = _userInvestmentService.PlaceWithdrawal(userInvestmentId, out string message);
+            bool IsWithdrawalPlaced = _userInvestmentService.PlaceWithdrawal(userInvestmentId, Convert.ToDouble(amount), out string message);
             if (!IsWithdrawalPlaced)
             {
                 HttpContext.Session.SetString("DisplayMessage", message);
@@ -471,7 +502,7 @@ namespace Afrikcredit.Controllers
             return RedirectToAction("Index", "Dashboard");
         }
 
-        public IActionResult WithdrawToWallet(long userInvestmentId, int percentage)
+        public IActionResult WithdrawToWallet(long userInvestmentId, int percentage, double amount)
         {
             //Check Authentication
             string userId = HttpContext.Session.GetString("UserID");
@@ -489,7 +520,7 @@ namespace Afrikcredit.Controllers
                 return RedirectToAction("Index", "Dashboard");
             }
 
-            bool IsWithdrawalPlaced = _userInvestmentService.WithdrawToWallet(userInvestmentId, out string message);
+            bool IsWithdrawalPlaced = _userInvestmentService.WithdrawToWallet(userInvestmentId, amount, out string message);
             if (!IsWithdrawalPlaced)
             {
                 HttpContext.Session.SetString("DisplayMessage", message);

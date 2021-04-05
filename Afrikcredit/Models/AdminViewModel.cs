@@ -24,5 +24,6 @@ namespace Afrikcredit.Models
         public int TotalUsersWithActiveInvestment { get; set; }
         public bool IsCouponUserDeactivated { get; set; }
         public string notificationMessage { get; set; }
+        public bool CanUsersWithdrawStatus { get; set; }
     }
 }

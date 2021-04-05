@@ -196,6 +196,8 @@
                                                 </div>
                                             }
                                         }
+                                        <br />
+                                        <p>Withdrawal Enabled: <b>@Model.CanUsersWithdrawStatus</b> &nbsp; &nbsp; &nbsp; <button class="btn btn-primary btn-sm" onclick="location.href = '@Url.Action("ToggleWithdrawalMode", "Dashboard")'">Toggle Withdrawal Mode</button></p>
                                     </div>
                                 </div>
                             </div>
@@ -260,7 +262,7 @@
                                                     {
                                                         <tr>
                                                             <td>@userInvestment.User.Username</td>
-                                                            <td>@userInvestment.Investment.AmountToBeGotten</td>
+                                                            <td>@userInvestment.AmountToWithdraw</td>
                                                             <td>@userInvestment.User.Wallet.AccountNumber</td>
                                                             <td>@userInvestment.User.Wallet.BankName</td>
                                                             <td>@userInvestment.Investment.Name</td>

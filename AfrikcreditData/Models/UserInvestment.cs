@@ -15,5 +15,6 @@ namespace AfrikcreditData.Models
         public DateTime DeactivationDate { get; set; }
         public bool IsWithdrawing { get; set; }
         public DateTime DateWithdrawalPlaced { get; set; }
+        public double AmountToWithdraw { get; set; }
     }
 }

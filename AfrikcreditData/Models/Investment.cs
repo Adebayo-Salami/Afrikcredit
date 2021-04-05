@@ -12,5 +12,6 @@ namespace AfrikcreditData.Models
         public int DaysDuration { get; set; }
         public string Description { get; set; }
         public double AmountToBeGotten { get; set; }
+        public bool IsWithdrawalAllowed { get; set; }
     }
 }

@@ -16,9 +16,16 @@ namespace Afrikcredit.Models
         public List<AfrikcreditData.Models.UserInvestment> UserInvestments { get; set; }
         public List<AfrikcreditData.Models.Investment> AvailableInvestments { get; set; }
         public string CouponCode { get; set; }
-        public decimal AmountGained(double amtToBeGotten, int investmentPercentage)
+        public decimal AmountGained(double amtToBeGotten, int investmentPercentage, bool IsWithdrawing = false, double amountWithdrawing = 0)
         {
-            return Convert.ToDecimal(investmentPercentage) / 100m * (decimal)amtToBeGotten;
+            if (IsWithdrawing)
+            {
+                return Convert.ToDecimal(amountWithdrawing);
+            }
+            else
+            {
+                return Convert.ToDecimal(investmentPercentage) / 100m * (decimal)amtToBeGotten;
+            }
         }
         public int GetInvestmentMaturityPercentage(DateTime dateOfInvestment, int investmentDuration = 0)
         {
