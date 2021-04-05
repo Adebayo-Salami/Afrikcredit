@@ -444,11 +444,11 @@ namespace Afrikcredit.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            if(percentage < 100)
-            {
-                HttpContext.Session.SetString("DisplayMessage", "Sorry, Investment is not yet fully matured. User cannot place withrawal yet!");
-                return RedirectToAction("Index", "Dashboard");
-            }
+            //if(percentage < 100)
+            //{
+            //    HttpContext.Session.SetString("DisplayMessage", "Sorry, Investment is not yet fully matured. User cannot place withrawal yet!");
+            //    return RedirectToAction("Index", "Dashboard");
+            //}
 
             bool IsWithdrawalPlaced = _userInvestmentService.PlaceWithdrawal(userInvestmentId, Convert.ToDouble(amount), out string message);
             if (!IsWithdrawalPlaced)
@@ -514,11 +514,11 @@ namespace Afrikcredit.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            if (percentage < 100)
-            {
-                HttpContext.Session.SetString("DisplayMessage", "Sorry, Investment is not yet fully matured. User cannot place withrawal yet!");
-                return RedirectToAction("Index", "Dashboard");
-            }
+            //if (percentage < 100)
+            //{
+            //    HttpContext.Session.SetString("DisplayMessage", "Sorry, Investment is not yet fully matured. User cannot place withrawal yet!");
+            //    return RedirectToAction("Index", "Dashboard");
+            //}
 
             bool IsWithdrawalPlaced = _userInvestmentService.WithdrawToWallet(userInvestmentId, amount, out string message);
             if (!IsWithdrawalPlaced)
